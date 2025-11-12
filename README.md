@@ -79,7 +79,7 @@ cd /path/to/working/directory
 ## STEP 2: Importing Sequences Into Qiime2
 Instructions on importing sequences into a qiime2 artifact can be found [HERE](https://docs.qiime2.org/2024.10/tutorials/importing/).
 <br>Qiime2 visualization files (.qzv) can be viewed [HERE](https://view.qiime2.org/?src=e96f979f-4cc6-46fc-800f-abe58740e4ea).
-
+<br><br>WARNING: This can take upwards of 2-10 hours depending on how large your data set is!
 **Import paired-end sequences using Casava 1.8 paired-end demultiplexed fastq method**
 ```
 qiime tools import \
