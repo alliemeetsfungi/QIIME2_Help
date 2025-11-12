@@ -162,6 +162,7 @@ qiime demux summarize \
   --o-visualization path/to/where/qiime2/artifact/will/be/saved/file-name.qzv
 ```
 See paired-end section for next steps using the Qiime2 visualization file (.qzv)
+<br><br>If running multiple tests on the same set of sequences, single end and paired-end outputs should have the output parameters with the exception of no Reverse section being shown.
 
 ## STEP 3: Trim Primers From Sequences
 This section uses cutadapt, the handbook can be found [HERE](https://docs.qiime2.org/2024.10/plugins/available/cutadapt/index.html).
@@ -194,6 +195,24 @@ qiime demux summarize \
 ```
 Go to Qiime2 Viewer on browser and upload the .qzv file, <ins>record total reads and any other pertinent information</ins>. Compare these outputs to your imported outputs from STEP 2. There shouldn't be any differences if everything worked correctly!
 <br><br>Scroll to the very bottom of the "Overview" page and click "Download as TSV" to download per-sample-fastq-counts.tsv post primer trimming if desired.
+
+<br>**Single-end sequences**
+<br>This method is similar to trimming primers off of paired end sequences, with minor differences.
+```
+qiime cutadapt trim-single \
+   --i-demultiplexed-sequences path/to/where/qiime2/import/artifact/was/saved/file-name.qza \
+   --p-front FWDPRIMERSEQUENCE \
+   --o-trimmed-sequences path/to/where/file/will/be/saved/file-name.qza \
+   --verbose
+```
+Convert qiime artifcat into visualization file
+```
+qiime demux summarize \
+  --i-data path/to/where/file/was/saved/file-name.qza \
+  --o-visualization path/to/where/file/will/be/saved/file-name.qzv
+```
+See paired-end section for next steps using the Qiime2 visualization file (.qzv)
+<br><br>If running multiple tests on the same set of sequences, single end and paired-end outputs should have the output parameters with the exception of no Reverse section being shown.
 
 
 
