@@ -1,8 +1,5 @@
-# qiime2_amplicon_cleanup
-## Test 1
-### Test 2
-reg text
-
+# Qiime2_amplicon_cleanup
+All of the code used here is compatible with the package Qiime2 amplicon version 2024.10
 
 ## Purpose: 
 To make pipeline for SSU & 16S amplicon sequencing cleanup and taxonomic identification
