@@ -24,7 +24,7 @@ For example, if your sequences are found in /home/project/sequences, set your wo
 cd /path/to/working/directory
 ```
 
-<br>### Using HPC
+### Using HPC
 
 Upload all fastq.gz files onto HPC
 ```
