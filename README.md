@@ -82,8 +82,8 @@ source activate qiime2
 cd /path/to/working/directory
 ```
 ## STEP 2: Importing Data Into Qiime2
-Instructions on importing sequences into a qiime2 artifact can be found [here](https://docs.qiime2.org/2024.10/tutorials/importing/)
-<br>Qiime2 visualization files (.qzv) can be viewed [here](https://view.qiime2.org/?src=e96f979f-4cc6-46fc-800f-abe58740e4ea)
+Instructions on importing sequences into a qiime2 artifact can be found [HERE](https://docs.qiime2.org/2024.10/tutorials/importing/).
+<br>Qiime2 visualization files (.qzv) can be viewed [HERE](https://view.qiime2.org/?src=e96f979f-4cc6-46fc-800f-abe58740e4ea).
 
 **Import paired-end sequences using Casava 1.8 paired-end demultiplexed fastq method**
 ```
@@ -99,7 +99,7 @@ qiime demux summarize \
   --i-data path/to/where/qiime2/artifact/was/saved/file-name.qza \
   --o-visualization path/to/where/qiime2/visual/file/will/be/saved/file-name.qzv
 ```
-Go to Qiime2 Viewer on browser and upload the .qzv file and check to see if Forward and Reverse read counts are the same! [Here](https://forum.qiime2.org/t/demultiplexed-sequence-length-summary-identical-forward-and-reverse-for-emp-paired-end-reads/20692) is a forum with more information on this.
+Go to Qiime2 Viewer on browser and upload the .qzv file and check to see if Forward and Reverse read counts are the same! [HERE](https://forum.qiime2.org/t/demultiplexed-sequence-length-summary-identical-forward-and-reverse-for-emp-paired-end-reads/20692) is a forum with more information on this.
 <br><ins>Record total reads</ins>
 
 <br>*Go to the "Interactive Quality Plot" tab*
@@ -158,22 +158,46 @@ qiime tools import \
 Convert qiime artifcat into visualization file 
 ```
 qiime demux summarize \
-  --i-data path/to/where/qiime2/artifact/will/be/saved/file-name.qza \
+  --i-data path/to/where/qiime2/artifact/was/saved/file-name.qza \
   --o-visualization path/to/where/qiime2/artifact/will/be/saved/file-name.qzv
 ```
 See paired-end section for next steps using the Qiime2 visualization file (.qzv)
 
 ## STEP 3: Trim Primers From Sequences
-<br>This section uses cutadapt, the handbook can be found [HERE](https://docs.qiime2.org/2024.10/plugins/available/cutadapt/index.html).
+This section uses cutadapt, the handbook can be found [HERE](https://docs.qiime2.org/2024.10/plugins/available/cutadapt/index.html).
 <br>For background on trimming Golay barcodes see [THIS](https://forum.qiime2.org/t/cutadapt-adapter-vs-front/15450) forum page.
 
-<ins>Primers commonly used in our studies:</ins>
-<br> Bacterial small ribosomal subunit (16S) V4 amplicon using 515F/806R primers
-  515F (Forward primer): GTGYCAGCMGCCGCGGTAA
-  806R (Reverse primer): GGACTACNVGGGTWTCTAAT
-<br>Fungal small ribosomal subunit (18s) amplicon using WANDA/AML2 primers
-  WANDA (Forward Primer): CAGCCGCGGTAATTCCAGC
-  AML2 (Reverse Primer): GAACCCAAACACTTTGGTTTCC
+**Primers commonly used in our studies:**
+<br><ins>Bacterial small ribosomal subunit (16S) V4 amplicon using 515F/806R primers</ins>
+  <br>515F (Forward primer): GTGYCAGCMGCCGCGGTAA
+  <br>806R (Reverse primer): GGACTACNVGGGTWTCTAAT
+<br><br><ins>Fungal small ribosomal subunit (18s) amplicon using WANDA/AML2 primers</ins>
+  <br>WANDA (Forward Primer): CAGCCGCGGTAATTCCAGC
+  <br>AML2 (Reverse Primer): GAACCCAAACACTTTGGTTTCC
+
+<br>**Paired-end sequences**
+<br>This method trims primers based on primer sequence rather than length
+```
+qiime cutadapt trim-paired \
+   --i-demultiplexed-sequences path/to/where/qiime2/import/artifact/was/saved/file-name.qza \
+   --p-front-f FWDPRIMERSEQUENCE \
+   --p-front-r REVPRIMERSEQUENCE \
+   --o-trimmed-sequences path/to/where/file/will/be/saved/file-name.qza \
+   --verbose
+```
+--verbose tells Qiime2 to print out the logging output to the terminal while it runs the command. This can help trouble shoot any errors that may occur during the run, but is not necessary for trimming process.
+<br><br>Convert qiime artifcat into visualization file
+```
+qiime demux summarize \
+  --i-data path/to/where/file/was/saved/file-name.qza \
+  --o-visualization path/to/where/file/will/be/saved/file-name.qzv
+```
+Go to Qiime2 Viewer on browser and upload the .qzv file, <ins>record total reads and any other pertinent information</ins>. Compare these outputs to your imported outputs from STEP 2. There shouldn't be any differences if everything worked correctly!
+<br><br>Scroll to the very bottom of the "Overview" page and click "Download as TSV" to download per-sample-fastq-counts.tsv post primer trimming if desired.
+
+
+
+
 
 ## STEP 4: DADA2 Trimming And Denoising
 ## STEP 5: Export Feature Table For Culling
