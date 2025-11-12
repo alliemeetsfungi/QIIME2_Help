@@ -164,6 +164,17 @@ qiime demux summarize \
 See paired-end section for next steps using the Qiime2 visualization file (.qzv)
 
 ## STEP 3: Trim Primers From Sequences
+<br>This section uses cutadapt, the handbook can be found [HERE](https://docs.qiime2.org/2024.10/plugins/available/cutadapt/index.html).
+<br>For background on trimming Golay barcodes see [THIS](https://forum.qiime2.org/t/cutadapt-adapter-vs-front/15450) forum page.
+
+<ins>Primers commonly used in our studies:</ins>
+<br> Bacterial small ribosomal subunit (16S) V4 amplicon using 515F/806R primers
+  515F (Forward primer): GTGYCAGCMGCCGCGGTAA
+  806R (Reverse primer): GGACTACNVGGGTWTCTAAT
+<br>Fungal small ribosomal subunit (18s) amplicon using WANDA/AML2 primers
+  WANDA (Forward Primer): CAGCCGCGGTAATTCCAGC
+  AML2 (Reverse Primer): GAACCCAAACACTTTGGTTTCC
+
 ## STEP 4: DADA2 Trimming And Denoising
 ## STEP 5: Export Feature Table For Culling
 ## STEP 6: Import Databases For Taxonomic Identification
