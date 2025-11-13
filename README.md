@@ -105,7 +105,8 @@ cd /path/to/working/directory
 Instructions on importing sequences into a qiime2 artifact can be found [HERE](https://docs.qiime2.org/2024.10/tutorials/importing/).
 <br>Qiime2 visualization files (.qzv) can be viewed [HERE](https://view.qiime2.org/?src=e96f979f-4cc6-46fc-800f-abe58740e4ea).
 <br><br>WARNING: This can take upwards of 2-10 hours depending on how large your data set is!
-<br><br>**Import paired-end sequences using Casava 1.8 paired-end demultiplexed fastq method**
+<br><br>
+### Import paired-end sequences using Casava 1.8 paired-end demultiplexed fastq method
 ```
 qiime tools import \
   --type 'SampleData[PairedEndSequencesWithQuality]' \
@@ -159,8 +160,8 @@ Check to make sure they re-uploaded correctly
 zcat /path/to/file.fastq.gz | echo $((`wc -l`/4))
 ```
 4. Re-rerun import code above and check the .qzv file to see if the problem was fixed
-
-<br>**Import Forward sequences using Casava 1.8 single-end demultiplexed fastq method**
+<br>
+### Import Forward sequences using Casava 1.8 single-end demultiplexed fastq method
 <br><br><ins>Copy all foward sequences into new directory</ins>
 <br>All forward sequence files share a common suffix in their file names such as READ1.fastq.gz or R1_001.fastq.gz. Use this shared suffix, unique from the reverse reads (READ2.fastq.gz or R2_001.fastq.gz), to differentiate forward from reverse reads within the code.
 ```
@@ -195,8 +196,8 @@ This section uses cutadapt, the handbook can be found [HERE](https://docs.qiime2
 <br><br><ins>Fungal small ribosomal subunit (18s) amplicon using WANDA/AML2 primers</ins>
   <br>WANDA (Forward Primer): CAGCCGCGGTAATTCCAGC
   <br>AML2 (Reverse Primer): GAACCCAAACACTTTGGTTTCC
-
-<br>**Trim Primers From Paired-end Sequences**
+<br><br>
+### Trim Primers From Paired-end Sequences
 <br>This method trims primers based on primer sequence rather than length
 ```
 qiime cutadapt trim-paired \
@@ -215,8 +216,8 @@ qiime demux summarize \
 ```
 Go to Qiime2 Viewer on browser and upload the .qzv file, <ins>record total reads and any other pertinent information</ins>. Compare these outputs to your imported outputs from STEP 2. There shouldn't be any differences if everything worked correctly!
 <br><br>Scroll to the very bottom of the "Overview" page and click "Download as TSV" to download per-sample-fastq-counts.tsv post primer trimming if desired.
-
-<br>**Trim Primers From Forward Sequences**
+<br><br>
+### Trim Primers From Forward Sequences
 <br>This method is similar to trimming primers off of paired end sequences, with minor differences.
 ```
 qiime cutadapt trim-single \
@@ -240,7 +241,8 @@ To assure that the most features will be detected, multiple tests will be run at
 1. <ins>Feature Table</ins> (feature-table.qza)
 2. <ins>Representative Sequences</ins> of detected features (feature-rep-seqs.qza)
 3. <ins>Denoising Statistics</ins> that shows the breakdown of the reads which passed each cleaning step (filtering, denoising, merging, and chimeras) for every sample (denoising-stats.qza)
-<br><br>**Cleaning and Merging Paired-end Sequences**
+<br><br>
+### Cleaning and Merging Paired-end Sequences
 <br><ins>Test 1: Maintain Entire Sequence length</ins>
 Setting truncation length to 300 should maintain the entire sequence for both foward and reverse reads.
 ```
@@ -312,7 +314,8 @@ qiime metadata tabulate \
 ```
 <br>Record the number of samples that retained at least 25% of their reads, and download entire metadata table.
 
-<br><br>**Cleaning Forward Sequences**
+<br><br>
+### Cleaning Forward Sequences
 <br><ins>Test 3: Trim forward sequences conservatively</ins>
 <br>Choose to trim sequences shorter in order to avoid poor quality reads 
 ```
@@ -434,7 +437,79 @@ path/to/local/drive/directory
 ```
 <br><br>
 ## STEP 7: Import Databases For Taxonomic Identification
+The following databases are the most commonly used for our studies. Some require files to be downloaded from the database webpage, while other databases can be pulled directly through Qiime2.
+<br><br>
+### Fungal Databases
+<br><ins>Eukaryome</ins>
+<br>Files can be downloaded [HERE](https://eukaryome.org/qiime2/) for Qiime2 compatability. This code is based on QIIME2_EUK_SSU Version 2.0, however databases for LSU, ITS, and other packages are available.
+<br><br>Transfer downloaded files into working directory
+<br><br>Import reference sequences
+```
+qiime tools import --type 'FeatureData[Sequence]' \
+  --input-path path/to/file/QIIME2_EUK_SSU_v2.0.fasta \
+  --output-path desired/path/to/file/eukaryome-ref-seqs.qza
+```
+Import taxonomy
+```
+qiime tools import --type 'FeatureData[Taxonomy]' \
+  --input-format HeaderlessTSVTaxonomyFormat \
+  --input-path path/to/file/QIIME2_EUK_SSU_v2.0.tsv \
+  --output-path desired/path/to/file/eukaryome-ref-tax.qza
+```
+<br><br>
+<ins>National Center for Biotechnology Information (NCBI)</ins>
+<br>Files can be pulled straight from NCBI using Qiime2 and are reliant on how often the database is updated remotely
+```
+qiime rescript get-ncbi-data \
+  --p-query '18S[ALL] AND fungi[ORGN]' \
+  --o-sequences desired/path/to/file/ncbi-fungi-ref-seqs.qza \
+  --o-taxonomy desired/path/to/file/ncbi-fungi-ref-tax.qza \
+  --p-n-jobs 5
+```
+You can alter the query to filter for specific taxa, such as Glomeromycotina
+```
+qiime rescript get-ncbi-data \
+--p-query '18S[ALL] AND glomeromycotina [ORGN]' \
+--o-sequences desired/path/to/file/ncbi-AMF-ref-seqs.qza \
+--o-taxonomy desired/path/to/file/ncbi-AMF-ref-tax.qza \
+--p-n-jobs 5
 
+```
+<br><br><ins>MaarjAM</ins>
+<br>Qiime2 compatable files can be downloaded [HERE](https://maarjam.ut.ee/?action=bDownload). This code is based on MaarjAM VT sequences of 18S rDNA gene region QIIME release (2021) for identifying Arbuscular Mycorrhizal Fungi (AMF).
+<br><br>Transfer downloaded files into working directory
+<br>Import reference sequences
+```
+qiime tools import --type 'FeatureData[Sequence]' \
+--input-path path/to/file/maarjam_database_SSU.qiime.fasta \
+--output-path desired/path/to/file/maarjam-ref-seqs.qza
+```
+Import taxonomy
+```
+qiime tools import --type 'FeatureData[Taxonomy]' \
+--input-format HeaderlessTSVTaxonomyFormat \
+--input-path path/to/file/maarjam_database_SSU.qiime.txt \
+--output-path desired/path/to/file/maarjam-ref-tax.qza
+```
+  
+
+## 6.3 SILVA 138.2 ##
+#~~~~~~~~~~~~~~~~~~~#
+# Pull straight from silva database; see https://forum.qiime2.org/t/sequence-and-taxonomy-files-for-silva-v138-2/33475
+	#NOTE: the reference sequences pulled are rna format, need to reverse transcribe!
+
+# Pull data from silva repository	
+qiime rescript get-silva-data \
+  --p-version '138.2' \
+  --p-target 'SSURef_NR99' \
+  --o-silva-sequences database_files/SILVA_138.2/silva-138.2-rna-ref-seqs.qza \
+  --o-silva-taxonomy database_files/silva-138.2-ref-tax.qza
+
+# Reverse transcribe reference sequences (rRNA) for assignment compatibility (rDNA)
+qiime rescript reverse-transcribe \
+  --i-rna-sequences database_files/SILVA_138.2/silva-138.2-rna-ref-seqs.qza \
+  --o-dna-sequences database_files/silva-138.2-ref-seqs.qza
+  
 <br><br>
 ## STEP 8: Taxonomic Assignment To Features
 
