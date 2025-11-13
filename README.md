@@ -75,12 +75,13 @@ source activate qiime2
 ```
 cd /path/to/working/directory
 ```
+<br>
 
 ## STEP 2: Importing Sequences Into Qiime2
 Instructions on importing sequences into a qiime2 artifact can be found [HERE](https://docs.qiime2.org/2024.10/tutorials/importing/).
 <br>Qiime2 visualization files (.qzv) can be viewed [HERE](https://view.qiime2.org/?src=e96f979f-4cc6-46fc-800f-abe58740e4ea).
 <br><br>WARNING: This can take upwards of 2-10 hours depending on how large your data set is!
-**Import paired-end sequences using Casava 1.8 paired-end demultiplexed fastq method**
+<br><br>**Import paired-end sequences using Casava 1.8 paired-end demultiplexed fastq method**
 ```
 qiime tools import \
   --type 'SampleData[PairedEndSequencesWithQuality]' \
@@ -158,7 +159,7 @@ qiime demux summarize \
 ```
 See paired-end section for next steps using the Qiime2 visualization file (.qzv)
 <br><br>If running multiple tests on the same set of sequences, single end and paired-end outputs should have the output parameters with the exception of no Reverse section being shown.
-
+<br><br>
 ## STEP 3: Trim Primers From Sequences
 This section uses cutadapt, the handbook can be found [HERE](https://docs.qiime2.org/2024.10/plugins/available/cutadapt/index.html).
 <br>For background on trimming Golay barcodes see [THIS](https://forum.qiime2.org/t/cutadapt-adapter-vs-front/15450) forum page.
@@ -207,18 +208,29 @@ qiime demux summarize \
   --o-visualization path/to/where/file/will/be/saved/file-name.qzv
 ```
 See paired-end section for next steps using the Qiime2 visualization file (.qzv)
-<br><br>If running multiple tests on the same set of sequences, single end and paired-end outputs should have the output parameters with the exception of no Reverse section being shown.
-
-
-
-
-
+<br><br>If running multiple tests on the same set of sequences, single end and paired-end outputs should have identical parameters.
+<br><br>
 ## STEP 4: DADA2 Trimming And Denoising
+
+
+
+
+<br><br>
 ## STEP 5: Export Feature Table For Culling
+
+<br><br>
 ## STEP 6: Import Databases For Taxonomic Identification
+
+<br><br>
 ## STEP 7: Taxonomic Assignment To Features
+
+<br><br>
 ## STEP 8: Filtering Taxonomic Tables
+
+<br><br>
 ## STEP 9: Merging Taxonomic Tables And Classification Files
+
+<br><br>
 ## STEP 10: Export Final Tables And Representative Sequences
 
 
