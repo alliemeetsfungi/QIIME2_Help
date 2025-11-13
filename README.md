@@ -408,7 +408,7 @@ qiime feature-table tabulate-seqs \
 Download .fasta file containing feature representative sequences
 
 <br><br>
-## STEP 5: Export Feature Table For Culling
+## STEP 6: Export Feature Table For Culling
 The resulting files can be imported into R for initial culling assesment
 <br><br>Export cleaned feature table to new directory
 ```
@@ -433,19 +433,19 @@ scp user@koa.its.hawaii.edu:/home/user/path/to/results/directory/feature-table-d
 path/to/local/drive/directory
 ```
 <br><br>
-## STEP 6: Import Databases For Taxonomic Identification
+## STEP 7: Import Databases For Taxonomic Identification
 
 <br><br>
-## STEP 7: Taxonomic Assignment To Features
+## STEP 8: Taxonomic Assignment To Features
 
 <br><br>
-## STEP 8: Filtering Taxonomic Tables
+## STEP 9: Filtering Taxonomic Tables
 
 <br><br>
-## STEP 9: Merging Taxonomic Tables And Classification Files
+## STEP 10: Merging Taxonomic Tables And Classification Files
 
 <br><br>
-## STEP 10: Export Final Tables And Representative Sequences
+## STEP 11: Export Final Tables And Representative Sequences
 
 
 
