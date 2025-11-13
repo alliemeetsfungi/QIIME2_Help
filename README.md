@@ -6,19 +6,21 @@ To make pipeline for SSU & 16S amplicon sequencing cleanup and taxonomic identif
 
 ## STEP 1: Prepare Files & Environment
 ### Using local drive
-Make sure sequences are downloaded in an accessible location on the local drive.
-
-
-<ins>Download Qiime2 on local drive</ins>
+Make sure sequences are downloaded in an accessible location as fastq.gz files on the local drive.
+<br><br>Compress each fastq file in a directory into fastq.gz files
+```
+gzip path/to/fastq/sequence/files/*.fastq
+```
+<br><ins>Download Qiime2 on local drive</ins>
 ```
 Need code for this
 ```
-<br>Activate Qiime2 in terminal command line
+Activate Qiime2 in terminal command line
 ```
 conda activate /Users/yo/miniconda/envs/qiime2-amplicon-2024.10
 ```
 
-<br>Set working directory along the path to where the directory where the sequences are stored. <br>
+<br>Set working directory along the same path to the directory containing gzipped sequences. <br>
 For example, if your sequences are found in /home/project/sequences, set your working directory to /home/project
 ```
 cd /path/to/working/directory
@@ -41,18 +43,16 @@ Start interactive job
 ```
 srun -p shared --mem=100G -c 4 -t 06:00:00 --pty /bin/bash
 ```
-
 <br><ins>Stay on you home directory for Qiime2 installation</ins>
 <br>Load anaconda module (this is already installed on the HPC for all users)
 ```
 module load lang/Anaconda3/2024.02-1
 ```
-
-<br>Install Qiime2 
+Install Qiime2 
 ``` 
 conda env create -n qiime2 --file https://data.qiime2.org/distro/amplicon/qiime2-amplicon-2024.10-py310-linux-conda.yml
 ```
-<br>NOTE: line after -n is what the environment will be named, in the code below it is "qiime2" but could be anything! You will use this name to activate Qiime2 on the HPC, so take note of whatever you name it.
+NOTE: line after -n is what the environment will be named, in the code below it is "qiime2" but could be anything! You will use this name to activate Qiime2 on the HPC, so take note of whatever you name it.
 <br><br>Check conda environments to make sure it installed correctly by looking for what you named your Qiime2 package during installation.
 ```
 conda info - e
