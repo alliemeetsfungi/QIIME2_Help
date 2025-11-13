@@ -517,9 +517,8 @@ qiime rescript get-gtdb-data \
   --p-domain Bacteria \
   --output-dir desired/directory/path/for/files
 ```
+<br>
 
-
-<br><br>
 ## STEP 8: Taxonomic Assignment To Features
 
 <br><br>
