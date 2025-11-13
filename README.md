@@ -377,10 +377,61 @@ qiime metadata tabulate \
   --o-visualization path/to/results/directory/denoising-stats.qzv
 ```
 <br>Record the number of samples that retained at least 25% of their reads, and download entire metadata table.
+<br><br><ins>Compare the number of features and number of samples with sufficient read retention among all tests. The test with the highest amount of features and samples with sufficient read retention should be used from this point forward.
+
+<br><br>
+## STEP 5 (OPTIONAL!): Cluster ASVs into OTUs
+Use the feature table and representative sequences from the DADA2 cleanup with the best feature count and sample read retention outcome.
+<br><br>Cluster sequences into 97% identity
+```
+qiime vsearch cluster-features-de-novo \
+  --i-table path/to/results/directory/feature-table.qza \
+  --i-sequences path/to/results/directory/feature-rep-seqs.qza \
+  --p-perc-identity 0.97 \
+  --o-clustered-table path/to/results/directory/otu-feature-table.qza \
+  --o-clustered-sequences path/to/results/directory/otu-feature-rep-seqs.qza \
+  --verbose
+```
+Convert feature table artifact (otu-feature-table.qza) into visualization file (otu-feature-table.qzv)
+```
+qiime feature-table summarize \
+  --i-table path/to/results/directory/otu-feature-table.qza \
+  --o-visualization path/to/results/directory/otu-feature-table.qzv
+```
+Record number of features and sequencing reads
+<br><br>Convert artifact containing representative sequences (otu-feature-rep-seqs.qza) into visualization file (otu-feature-rep-seqs.qzv)
+```
+qiime feature-table tabulate-seqs \
+  --i-data path/to/results/directory/otu-feature-rep-seqs.qza \
+  --o-visualization path/to/results/directory/otu-feature-rep-seqs.qzv
+```
+Download .fasta file containing feature representative sequences
 
 <br><br>
 ## STEP 5: Export Feature Table For Culling
-
+The resulting files can be imported into R for initial culling assesment
+<br><br>Export cleaned feature table to new directory
+```
+qiime tools export \
+  --input-path path/to/results/directory/feature-table.qza \
+  --output-path path/to/results/directory/feature-table-directory
+```
+Convert exported feature table into a .tsv
+```
+biom convert \
+  --input-fp path/to/results/directory/feature-table-directory/feature-table.biom \
+  --output-fp path/to/results/directory/feature-table-directory/feature-table.tsv \
+  --to-tsv
+```
+Convert .tsv to .csv
+```
+sed 's/\t/,/g' path/to/results/directory/feature-table-directory/feature-table.tsv > path/to/results/directory/feature-table-directory/feature-table.csv
+```
+<br><br>Download final table in new command line window on local drive (not signed into KOA).
+```
+scp user@koa.its.hawaii.edu:/home/user/path/to/results/directory/feature-table-directory/feature-table.csv \
+path/to/local/drive/directory
+```
 <br><br>
 ## STEP 6: Import Databases For Taxonomic Identification
 
