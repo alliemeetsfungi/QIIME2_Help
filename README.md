@@ -196,7 +196,7 @@ This section uses cutadapt, the handbook can be found [HERE](https://docs.qiime2
   <br>WANDA (Forward Primer): CAGCCGCGGTAATTCCAGC
   <br>AML2 (Reverse Primer): GAACCCAAACACTTTGGTTTCC
 
-<br>**Paired-end sequences**
+<br>**Trim Primers From Paired-end Sequences**
 <br>This method trims primers based on primer sequence rather than length
 ```
 qiime cutadapt trim-paired \
@@ -216,7 +216,7 @@ qiime demux summarize \
 Go to Qiime2 Viewer on browser and upload the .qzv file, <ins>record total reads and any other pertinent information</ins>. Compare these outputs to your imported outputs from STEP 2. There shouldn't be any differences if everything worked correctly!
 <br><br>Scroll to the very bottom of the "Overview" page and click "Download as TSV" to download per-sample-fastq-counts.tsv post primer trimming if desired.
 
-<br>**Single-end sequences**
+<br>**Trim Primers From Forward Sequences**
 <br>This method is similar to trimming primers off of paired end sequences, with minor differences.
 ```
 qiime cutadapt trim-single \
@@ -234,7 +234,49 @@ qiime demux summarize \
 See paired-end section for next steps using the Qiime2 visualization file (.qzv)
 <br><br>If running multiple tests on the same set of sequences, single end and paired-end outputs should have identical parameters.
 <br><br>
-## STEP 4: DADA2 Trimming And Denoising
+## STEP 4: DADA2: Trimming, Merging, Denoising, and Feature Calling of Sequences
+To assure that the most features will be detected, multiple tests will be run at this step based on post primer trimming quality plots.
+<br><br>This process will produce three Qiime2 artifacts:
+1. <ins>Feature Table</ins> (feature-table.qza)
+2. <ins>Representative Sequences</ins> of detected features (feature-rep-seqs.qza)
+3. <ins>Denoising Statistics</ins> that shows the breakdown of the reads which passed each cleaning step (filtering, denoising, merging, and chimeras) for every sample (denoising-stats.qza)
+<br><br>**Cleaning and Merging Paired-end Sequences**
+<br><ins>Test 1: Maintain Entire Sequence length</ins>
+Setting truncation length to 300 should maintain the entire sequence for both foward and reverse reads.
+```
+qiime dada2 denoise-paired \
+  --i-demultiplexed-seqs path/to/primer/trimmed/file-name.qza \
+  --p-trunc-len-f 300 \
+  --p-trunc-len-r 300 \
+  --o-table path/to/results/directory/feature-table.qza \
+  --o-representative-sequences path/to/results/directory/feature-rep-seqs.qza \
+  --o-denoising-stats path/to/results/directory/denoising-stats.qza \
+  --verbose
+```
+
+<br><br>Convert feature table Qiime2 artifact (feature-table.qza) into visualization file (feature-table.qzv)
+```
+qiime feature-table summarize \
+  --i-table path/to/results/directory/feature-table.qza \
+  --o-visualization path/to/results/directory/feature-table.qzv
+```
+Record the number of samples, features, and total frequency (reads)
+<br><br>Convert representative sequences Qiime2 artifcat (feature-rep-seqs.qza) into a visualization file (feature-rep-seqs.qzv)
+```
+qiime feature-table tabulate-seqs \
+  --i-data path/to/results/directory/feature-rep-seqs.qza \
+  --o-visualization path/to/results/directory/feature-rep-seqs.qzv
+```
+Record sequence count (features), and sequence length statistics.
+<br>Additionally, you can download a .fasta file containing the sequence associated with each feature detected.
+<br><br>Convert denoising statistics Qiime2 artifact (denoising-stats.qza) into visualization file (denoising-stats.qzv)
+```
+qiime metadata tabulate \
+  --m-input-file path/to/results/directory/denoising-stats.qza \
+  --o-visualization path/to/results/directory/denoising-stats.qzv
+```
+This table summarizes each samples sequencing reads that were able to pass the cleaning steps performed in DADA2. 
+<br>Record how many samples were able to retain an acceptable amount (atleast 25%) of their reads. Additionally, you can download the entire table for referencing later.
 
 
 
