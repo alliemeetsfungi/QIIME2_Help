@@ -190,7 +190,7 @@ This section uses cutadapt, the handbook can be found [HERE](https://docs.qiime2
 <br>For background on trimming Golay barcodes see [THIS](https://forum.qiime2.org/t/cutadapt-adapter-vs-front/15450) forum page.
 
 **Primers commonly used in our studies:**
-<br><ins>Bacterial small ribosomal subunit (16S) V4 amplicon using 515F/806R primers</ins>
+<br><ins>Bacterial small ribosomal subunit (16S) V4 amplicon using 515F/806R primers</ins>. Amplified region is ~
   <br>515F (Forward primer): 5′-GTGYCAGCMGCCGCGGTAA-3′
   <br>806R (Reverse primer): 5′-GGACTACNVGGGTWTCTAAT-3′
 <br><br><ins>Arbuscular Mycorrhizal Fungi (AMF) small ribosomal subunit (18s) V4 amplicon using WANDA/AML2 primers</ins>. See Kacie Kajihara's paper [HERE](https://nph.onlinelibrary.wiley.com/doi/10.1111/nph.18058).
