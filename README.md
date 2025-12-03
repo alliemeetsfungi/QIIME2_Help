@@ -515,7 +515,7 @@ qiime tools import --type 'FeatureData[Taxonomy]' \
 --output-path desired/path/to/file/maarjam-ref-tax.qza
 ```
 
-<br><br><ins>UNITE/ins>
+<br><br><ins>UNITE</ins>
 
 ### Bacterial Databases
 <ins>Genome Taxonomy Database (GTDB)</ins>
@@ -660,9 +660,57 @@ qiime taxa filter-seqs \
   --p-include unassigned \
   --o-filtered-sequences path/to/databse/search/results/NEW-database/directory-80/unassigned-rep-seqs.qza
 ```
-If you have more databases you are interested in running your representative sequences through for furhter taxonomic assignment, repeat these steps for each additional database. See (INSERT MY OWN PIPELINES HERE) for reference on using multiple databases for taxonomic assignment with a real dataset. <br>
+If you have more databases you are interested in running your representative sequences through for furhter taxonomic assignment, repeat these steps for each additional database. See (INSERT MY OWN PIPELINES HERE) for reference on using multiple databases for taxonomic assignment with a real dataset. 
+<br>
 ## STEP 9: Filtering Taxonomic Tables
+Once you are satisfied with your taxonomic assignments using your representative sequences, you can filter your actual feature table to make tables that contain only taxonomically assigned features, or conversely only the remaining unassigned features.
+<br>
+<ins>Database ONE</ins>
+Begin with your original DADA2 feature table as your input table (feature-table.qza) and your classification file made from your first database at 95% identity. 
+<br>
+*Filtering for assigned features*
+```
+qiime taxa filter-table \
+  --i-table path/to/results/directory/feature-table.qza \                            #Your feature table from DADA2
+  --i-taxonomy path/to/search/results/database/directory-95/classification.qza \     #Classification file made from the first taxonomic query run
+  --p-exclude unassigned \                                                           #This will keep all features EXCEPT those that are annotated as unassigned
+  --o-filtered-table path/to/search/results/database/directory-95/assigned-table.qza #Desired output path of table
+```
+*Filtering for unassigned features*
+```
+qiime taxa filter-table \
+  --i-table path/to/results/directory/feature-table.qza \                            #Your feature table from DADA2
+  --i-taxonomy path/to/search/results/database/directory-95/classification.qza \     #Classification file made from the first taxonomic query you ran 
+  --p-include unassigned \                                                           #This will keep only features annotated as unassigned
+  --o-filtered-table path/to/search/results/database/directory-95/assigned-table.qza #Output path of table
+```
 
+# 90%: use resulting unassigned-table.qza as input table
+qiime taxa filter-table \
+  --i-table taxa_id/ssu/euk-95/unassigned-table.qza \
+  --i-taxonomy taxa_id/ssu/euk-90/classification.qza \
+  --p-exclude unassigned \
+  --o-filtered-table taxa_id/ssu/euk-90/assigned-table.qza
+
+qiime taxa filter-table \
+  --i-table taxa_id/ssu/euk-95/unassigned-table.qza \
+  --i-taxonomy taxa_id/ssu/euk-90/classification.qza \
+  --p-include unassigned \
+  --o-filtered-table taxa_id/ssu/euk-90/unassigned-table.qza
+
+
+# 80%
+qiime taxa filter-table \
+  --i-table taxa_id/ssu/euk-90/unassigned-table.qza \
+  --i-taxonomy taxa_id/ssu/euk-80/classification.qza \
+  --p-exclude unassigned \
+  --o-filtered-table taxa_id/ssu/euk-80/assigned-table.qza
+
+qiime taxa filter-table \
+  --i-table taxa_id/ssu/euk-90/unassigned-table.qza \
+  --i-taxonomy taxa_id/ssu/euk-80/classification.qza \
+  --p-include unassigned \
+  --o-filtered-table taxa_id/ssu/euk-80/unassigned-table.qza
 <br><br>
 ## STEP 10: Merging Taxonomic Tables And Classification Files
 
