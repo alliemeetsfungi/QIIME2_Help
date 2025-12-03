@@ -662,7 +662,7 @@ qiime taxa filter-seqs \
 ```
 If you have more databases you are interested in running your representative sequences through for furhter taxonomic assignment, repeat these steps for each additional database. See (INSERT MY OWN PIPELINES HERE) for reference on using multiple databases for taxonomic assignment with a real dataset. 
 <br>
-## STEP 9: Filtering Taxonomic Tables (OPTIONAL?)
+## STEP 9: Filtering Feature Tables (OPTIONAL)
 Once you are satisfied with your taxonomic assignments using your representative sequences, you can filter your actual feature table to make tables that contain only taxonomically assigned features, or conversely only the remaining unassigned features.
 <br>
 <ins>Database ONE</ins>
@@ -716,6 +716,7 @@ qiime taxa filter-table \
 ```
 Repeat these steps for the second database query results in sequence.
 ```
+# Database TWO 95% identity
 qiime taxa filter-table \
   --i-table path/to/search/results/database/directory-80/unassigned-table.qza \
   --i-taxonomy path/to/search/results/NEW-database/directory-95/classification.qza \
@@ -728,7 +729,7 @@ qiime taxa filter-table \
   --p-include unassigned \
   --o-filtered-table path/to/search/results/NEW-database/directory-95/unassigned-table.qza
 
-
+# Database TWO 90% identity
 qiime taxa filter-table \
   --i-table path/to/search/results/NEW-database/directory-95/unassigned-table.qza \
   --i-taxonomy path/to/search/results/NEW-database/directory-90/classification.qza \
@@ -741,7 +742,7 @@ qiime taxa filter-table \
   --p-include unassigned \
   --o-filtered-table path/to/search/results/NEW-database/directory-90/unassigned-table.qza
 
-
+# Database TWO 80% identity
 qiime taxa filter-table \
   --i-table path/to/search/results/NEW-database/directory-90/unassigned-table.qza \
   --i-taxonomy path/to/search/results/NEW-database/directory-80/classification.qza \
@@ -754,9 +755,7 @@ qiime taxa filter-table \
   --p-include unassigned \
   --o-filtered-table path/to/search/results/NEW-database/directory-80/unassigned-table.qza
 ```
-
-## STEP 10: Merging Taxonomic Tables And Classification Files
-<br>Now we will merge all of the feature tables containing the assigned taxonomic features into one table. This does not need to be performed for the unassigned tables as 
+<br>Since the feature tables containing assigned taxa are made by subsetting the original table, they are found in multiple different tables. In order to retrieve a single feature table containing all of the assigned taxonomic features, all of the individual feature tables containing the assigned taxa will need to be merged. This does not need to be performed for the unassigned tables since you filter out the assigned taxa as you go rather than subset for them, making the final unassigned table your complete feature table containing all of the unassigned features. I like to make a copy of the final unassigned feature table, rename it along the lines of "final-unassigned-feature-table.qza", and move this copy to my final results folder for easier access, but this is strictly preference.
 WHAT IS THE POINT OF THIS????
 NOTE: Tables must be listed from largest to smallest in order for the merge to actually work. Generally, your first search query table will be the largest and your last will be the smallest.
 ```
@@ -770,16 +769,71 @@ qiime feature-table merge \
   --o-merged-table path/to/final/results/directory/all-assigned-features-table.qza \
   --p-overlap-method sum
 ```
-Convert the Qiime2 artifact into a visualization file.
+Convert both the final assigned and unassigned feature tbale Qiime2 artifacts into a visualization files.
 ```
+# Final assigned feature table
 qiime feature-table summarize \
   --i-table path/to/final/results/directory/all-assigned-features-table.qza \
   --o-visualization path/to/final/results/directory/all-assigned-features-table.qzv
-```
-Upload this onto the Qiime2 viewer and record the number of samples, features, and reads accounted for in the table containing all of your taxonomic assignments.
-<br>
 
+# Final unassigned feature table
+qiime feature-table summarize \
+  --i-table path/to/search/results/NEW-database/directory-80/unassigned-table.qza \
+  --o-visualization path/to/final/results/directory/all-unassigned-features-table.qzv
+```
+Upload this onto the Qiime2 viewer and record the number of samples, features, and reads accounted for in both feature tables.
 <br><br>
+As a gut check, I like to merge both my assigned and unassigned feature tables to make sure that the sample, feature, and read counts match the original feature table from DADA2 (feature-table.qza). If the counts don't align, something went amiss when merging your assigned feature tables.
+```
+qiime feature-table merge \
+  --i-tables path/to/final/results/directory/all-assigned-features-table.qza \
+  --i-tables path/to/search/results/NEW-database/directory-80/unassigned-table.qza \
+  --o-merged-table path/to/final/results/directory/final-all-features-table.qza \
+  --p-overlap-method sum
+
+qiime feature-table summarize \
+  --i-table path/to/final/results/directory/final-all-features-table.qza \
+  --o-visualization path/to/final/results/directory/final-all-features-table.qzv
+```
+Upload the visualization file and confirm that the sample, feature, and read counts match that of the feature-table.qza produced from DADA2.
+
+## STEP 10: Merging Classification Files
+To retrieve your final taxa table, you will need to merge all of your classification files which can be a bit tricky. Before doing this, I like to determine how many features were annotated within each classfication file to make sure that merging is occurring correctly. To do this, all of the clalssification.qza Qiime2 artifacts will need to be converted into a visualization file.
+```
+qiime metadata tabulate \
+  --m-input-file path/to/search/results/database/directory-95/classification.qza \
+  --o-visualization path/to/search/results/database/directory-95/classification.qzv
+
+qiime metadata tabulate \
+  --m-input-file path/to/search/results/database/directory-90/classification.qza \
+  --o-visualization path/to/search/results/database/directory-90/classification.qzv
+
+qiime metadata tabulate \
+  --m-input-file path/to/search/results/database/directory-80/classification.qza \
+  --o-visualization path/to/search/results/database/directory-80/classification.qzv
+
+qiime metadata tabulate \
+  --m-input-file path/to/search/results/NEW-database/directory-95/classification.qza \
+  --o-visualization path/to/search/results/NEW-database/directory-95/classification.qzv
+
+qiime metadata tabulate \
+  --m-input-file path/to/search/results/NEW-database/directory-90/classification.qza \
+  --o-visualization path/to/search/results/NEW-database/directory-90/classification.qzv
+
+qiime metadata tabulate \
+  --m-input-file path/to/search/results/NEW-database/directory-80/classification.qza \
+  --o-visualization path/to/search/results/NEW-database/directory-80/classification.qzv
+```
+Upload each visualization file and record the number of features present
+<br><br>
+<ins>Merging Classification Tables</ins>
+
+
+
+
+
+
+
 ## STEP 11: Export Final Tables And Representative Sequences
 
 
