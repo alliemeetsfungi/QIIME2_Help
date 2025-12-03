@@ -714,8 +714,7 @@ qiime taxa filter-table \
   --p-include unassigned \
   --o-filtered-table path/to/search/results/database/directory-80/unassigned-table.qza
 ```
-<br>
-Repeat these steps for the second database query results in sequence
+Repeat these steps for the second database query results in sequence.
 ```
 qiime taxa filter-table \
   --i-table path/to/search/results/database/directory-80/unassigned-table.qza \
