@@ -536,71 +536,130 @@ Using the qiime artifact created by DADA2 (feature-rep-seqs.qza) containing the 
 <br>First blast search will be run with all parameters at the default (NEED TO CHECK THIS), except setting the percent identity (--p-perc-identity) to 95% (0.95)
 ```
 qiime feature-classifier classify-consensus-blast \
-  --i-query path/to/dada2/output/file/feature-rep-seqs.qza \ 
-  --i-reference-reads path/to/database/ref-seqs.qza \ # Database Reference Sequences
-  --i-reference-taxonomy path/to/database/rref-tax.qza \ # Database Reference Taxa
-  --p-maxaccepts 1 \ # Default value
-  --p-perc-identity 0.95 \ # Percent identity is reduced in the next query
-  --p-query-cov 0.90 \ # Default value
-  --p-strand both \ # Default value
-  --p-evalue 1e-50 \ # Default value
-  --p-min-consensus 0.51 \ # Default value
-  --output-dir path/to/search/results/database/directory-95 # Makes new directory containing multiple files, will err if you pre-make it!
+  --i-query path/to/dada2/output/file/feature-rep-seqs.qza \ #Your representative sequences post DADA2
+  --i-reference-reads path/to/database/ref-seqs.qza \        #Database Reference Sequences
+  --i-reference-taxonomy path/to/database/ref-tax.qza \      #Database Reference Taxa
+  --p-maxaccepts 1 \                                         #Default value
+  --p-perc-identity 0.95 \                                   #Percent identity is reduced in the next query
+  --p-query-cov 0.90 \                                       #Default value
+  --p-strand both \                                          #Default
+  --p-evalue 1e-50 \                                         #Default value
+  --p-min-consensus 0.51 \                                   #Default value
+  --output-dir path/to/search/results/database/directory-95  #Makes new directory containing multiple files, will err if you pre-make it!
 ```
 Filter out unassigned sequences into their own file
 ```
 qiime taxa filter-seqs \
-  --i-sequences path/to/dada2/output/file/feature-rep-seqs.qza \ # Input is the file you wanted to be filtered (input file for BLAST search feature-rep-seqs.qza file)
-  --i-taxonomy path/to/search/results/directory-95/classification.qza \ # the classification.qza file found in the classifier output directory
-  --p-include unassigned \ # Key word for what you are filtering for (i.e, keeping)
-  --o-filtered-sequences path/to/search/results/directory-95/unassigned-rep-seqs.qza # Remaining sequences that did not have taxa assigned under these BLAST search parameteres
+  --i-sequences path/to/dada2/output/file/feature-rep-seqs.qza \ #Input is the file you want to be filtered (input file for BLAST search feature-rep-seqs.qza file)
+  --i-taxonomy path/to/search/results/database/directory-95/classification.qza \ #The classification.qza file found in the classifier output directory
+  --p-include unassigned \ #Key word for what you are filtering for (i.e, keeping)
+  --o-filtered-sequences path/to/search/results/database/directory-95/unassigned-rep-seqs.qza #Remaining sequences that did not have taxa assigned under these BLAST search parameteres
 ```
 <br>*90% Identity*
 ```
 qiime feature-classifier classify-consensus-blast \
-  --i-query path/to/search/results/directory-95/unassigned-rep-seqs.qza \ # Change to ouput file from the previous filtered sequences that remain unassigned
-  --i-reference-reads path/to/database/ref-seqs.qza \ # Stays the same
-  --i-reference-taxonomy path/to/database/rref-tax.qza \ # Stays the same
+  --i-query path/to/search/results/database/directory-95/unassigned-rep-seqs.qza \ #Change to ouput file from the previous filtered sequences that remain unassigned
+  --i-reference-reads path/to/database/ref-seqs.qza \                     #Stays the same
+  --i-reference-taxonomy path/to/database/ref-tax.qza \                   #Stays the same
   --p-maxaccepts 1 \
-  --p-perc-identity 0.950 \ # This percent identity is defined
+  --p-perc-identity 0.90 \                                                #Reduce percent identity to 90%
   --p-query-cov 0.90 \
   --p-strand both \
   --p-evalue 1e-50 \
   --p-min-consensus 0.51 \
-  --output-dir path/to/search/results/database/directory-90 # makes new directory, will err if you pre-make it!
+  --output-dir path/to/search/results/database/directory-90
 ```
-Filter out unassigned sequences into their own file
+Filter out remaining unassigned sequences from this query search into their own file
 ```
 qiime taxa filter-seqs \
-  --i-sequences path/to/search/results/directory-95/unassigned-rep-seqs.qza \ # Use the input file for the BLAST search unassigned-rep-seqs.qza)
-  --i-taxonomy path/to/search/results/database/directory-90/classification.qza \ # nput resulting classification.qza file
+  --i-sequences path/to/search/results/database/directory-95/unassigned-rep-seqs.qza \        #Use the input file for the BLAST search (unassigned-rep-seqs.qza)
+  --i-taxonomy path/to/search/results/database/directory-90/classification.qza \     #Input the resulting classification.qza file
   --p-include unassigned \
-  --o-filtered-sequences taxa_id/ssu/euk-90/unassigned-rep-seqs.qza # Remaining sequences that did not have taxa assigned under these BLAST search parameteres
+  --o-filtered-sequences path/to/search/results/database/directory-90/unassigned-rep-seqs.qza #Remaining sequences that did not have taxa assigned under these search parameteres
 ```
-<br><br>*80% Identity*
-
+<br>*80% Identity*
 ```
 qiime feature-classifier classify-consensus-blast \
-  --i-query taxa_id/ssu/euk-90/unassigned-rep-seqs.qza \
-  --i-reference-reads database_files/eukaryome-ref-seqs.qza \
-  --i-reference-taxonomy database_files/eukaryome-ref-tax.qza \
+  --i-query path/to/search/results/database/directory-90/unassigned-rep-seqs.qza \ #Change to ouput file from the previous filtered sequences that remain unassigned
+  --i-reference-reads path/to/database/ref-seqs.qza \
+  --i-reference-taxonomy path/to/database/ref-tax.qza \
+  --p-maxaccepts 1 \
+  --p-perc-identity 0.80 \                                                #Reduce percent identity to 80%
+  --p-query-cov 0.90 \
+  --p-strand both \
+  --p-evalue 1e-50 \
+  --p-min-consensus 0.51 \
+  --output-dir path/to/search/results/database/directory-80               #Change name of directory
+
+qiime taxa filter-seqs \
+  --i-sequences path/to/search/results/database/directory-90/unassigned-rep-seqs.qza \
+  --i-taxonomy path/to/search/results/database/directory-80/classification.qza \
+  --p-include unassigned \
+  --o-filtered-sequences path/to/search/results/database/directory-80/unassigned-rep-seqs.qza
+```
+Run remaining unassignd sequences through the next databse!
+<br><br><ins>Database TWO</ins>
+<br>*95% Identity*
+At this step, you need to change the path for reference sequences and taxa to the files associated with the new databases reference sequences and taxa
+The remaining unassigned representative sequences file from the previous database should be used for --i-query (unassigned-rep-seqs.qza)
+```
+qiime feature-classifier classify-consensus-blast \
+  --i-query path/to/search/results/database/directory-80/unassigned-rep-seqs.qza \ #Remaining unnasigned representative sequences from first database
+  --i-reference-reads path/to/NEW-database/ref-seqs.qza \                 #NEW database Reference Sequences
+  --i-reference-taxonomy path/to/NEW-database/ref-tax.qza \               #NEW database Reference Taxa
+  --p-maxaccepts 1 \
+  --p-perc-identity 0.95 \
+  --p-query-cov 0.90 \
+  --p-strand both \
+  --p-evalue 1e-50 \
+  --p-min-consensus 0.51 \
+  --output-dir path/to/search/results/NEW-database/directory-95
+
+qiime taxa filter-seqs \
+  --i-sequences path/to/search/results/database/directory-80/unassigned-rep-seqs.qza \
+  --i-taxonomy path/to/search/results/NEW-database/directory-95/classification.qza \
+  --p-include unassigned \
+  --o-filtered-sequences path/to/search/results/NEW-database/directory-95/unassigned-rep-seqs.qza
+```
+<br>Continue on to run the remaining unassigned representative sequences at 90% and 80% identities for this database, the same as you did for the first database.
+```
+qiime feature-classifier classify-consensus-blast \
+  --i-query path/to/search/results/NEW-database/directory-95/unassigned-rep-seqs.qza \
+  --i-reference-reads path/to/NEW-database/ref-seqs.qza \
+  --i-reference-taxonomy path/to/NEW-database/ref-tax.qza \
+  --p-maxaccepts 1 \
+  --p-perc-identity 0.90 \
+  --p-query-cov 0.90 \
+  --p-strand both \
+  --p-evalue 1e-50 \
+  --p-min-consensus 0.51 \
+  --output-dir path/to/search/results/NEW-database/directory-90
+
+qiime taxa filter-seqs \
+  --i-sequences path/to/search/results/NEW-database/directory-95/unassigned-rep-seqs.qza \
+  --i-taxonomy path/to/search/results/NEW-database/directory-90/classification.qza \
+  --p-include unassigned \
+  --o-filtered-sequences path/to/search/results/NEW-database/directory-90/unassigned-rep-seqs.qza
+
+
+qiime feature-classifier classify-consensus-blast \
+  --i-query path/to/search/results/NEW-database/directory-90/unassigned-rep-seqs.qza \
+  --i-reference-reads path/to/NEW-database/ref-seqs.qza \
+  --i-reference-taxonomy path/to/NEW-database/ref-tax.qza \
   --p-maxaccepts 1 \
   --p-perc-identity 0.80 \
   --p-query-cov 0.90 \
   --p-strand both \
   --p-evalue 1e-50 \
   --p-min-consensus 0.51 \
-  --output-dir taxa_id/ssu/euk-80
+  --output-dir path/to/search/results/NEW-database/directory-80
 
 qiime taxa filter-seqs \
-  --i-sequences taxa_id/ssu/euk-90/unassigned-rep-seqs.qza \
-  --i-taxonomy taxa_id/ssu/euk-80/classification.qza \
+  --i-sequences path/to/search/results/NEW-database/directory-90/unassigned-rep-seqs.qza \
+  --i-taxonomy path/to/search/results/NEW-database/directory-80/classification.qza \
   --p-include unassigned \
-  --o-filtered-sequences taxa_id/ssu/euk-80/unassigned-rep-seqs.qza
+  --o-filtered-sequences path/to/databse/search/results/NEW-database/directory-80/unassigned-rep-seqs.qza
 ```
-Run remaining unassignd sequences through the next databse!
-<br><br><ins>Database TWO</ins>
-<br><br>
 ## STEP 9: Filtering Taxonomic Tables
 
 <br><br>
