@@ -662,7 +662,7 @@ qiime taxa filter-seqs \
 ```
 If you have more databases you are interested in running your representative sequences through for furhter taxonomic assignment, repeat these steps for each additional database. See (INSERT MY OWN PIPELINES HERE) for reference on using multiple databases for taxonomic assignment with a real dataset. 
 <br>
-## STEP 9: Filtering Taxonomic Tables
+## STEP 9: Filtering Taxonomic Tables (OPTIONAL?)
 Once you are satisfied with your taxonomic assignments using your representative sequences, you can filter your actual feature table to make tables that contain only taxonomically assigned features, or conversely only the remaining unassigned features.
 <br>
 <ins>Database ONE</ins>
@@ -682,35 +682,39 @@ qiime taxa filter-table \
   --i-table path/to/results/directory/feature-table.qza \                            #Your feature table from DADA2
   --i-taxonomy path/to/search/results/database/directory-95/classification.qza \     #Classification file made from the first taxonomic query you ran 
   --p-include unassigned \                                                           #This will keep only features annotated as unassigned
-  --o-filtered-table path/to/search/results/database/directory-95/assigned-table.qza #Output path of table
+  --o-filtered-table path/to/search/results/database/directory-95/unassigned-table.qza #Output path of table
+```
+Using the resulting unassigned table as your input table, repeat these steps for all additional taxonomic query searches you performed in the same order in which they were run.
+<br>
+*Database ONE 90% Identity*
+```
+qiime taxa filter-table \
+  --i-table path/to/search/results/database/directory-95/unassigned-table.qza \  #Your unassigned tabled made in the last step
+  --i-taxonomy path/to/search/results/database/directory-90/classification.qza \ #Classification file made from the second taxonomic query run
+  --p-exclude unassigned \
+  --o-filtered-table path/to/search/results/database/directory-90/assigned-table.qza
+
+qiime taxa filter-table \
+  --i-table path/to/search/results/database/directory-95/unassigned-table.qza \  #Your unassigned tabled made in the last step
+  --i-taxonomy path/to/search/results/database/directory-90/classification.qza \ #Classification file made from the second taxonomic query run
+  --p-include unassigned \
+  --o-filtered-table path/to/search/results/database/directory-90/unassigned-table.qza
+```
+*Database ONE 80% Identity*
+```
+qiime taxa filter-table \
+  --i-table path/to/search/results/database/directory-90/unassigned-table.qza \  #Your unassigned tabled made in the last step
+  --i-taxonomy path/to/search/results/database/directory-80/classification.qza \ #Classification file made from the second taxonomic query run
+  --p-exclude unassigned \
+  --o-filtered-table path/to/search/results/database/directory-80/assigned-table.qza
+
+qiime taxa filter-table \
+  --i-table path/to/search/results/database/directory-90/unassigned-table.qza \  #Your unassigned tabled made in the last step
+  --i-taxonomy path/to/search/results/database/directory-80/classification.qza \ #Classification file made from the second taxonomic query run
+  --p-include unassigned \
+  --o-filtered-table path/to/search/results/database/directory-80/unassigned-table.qza
 ```
 
-# 90%: use resulting unassigned-table.qza as input table
-qiime taxa filter-table \
-  --i-table taxa_id/ssu/euk-95/unassigned-table.qza \
-  --i-taxonomy taxa_id/ssu/euk-90/classification.qza \
-  --p-exclude unassigned \
-  --o-filtered-table taxa_id/ssu/euk-90/assigned-table.qza
-
-qiime taxa filter-table \
-  --i-table taxa_id/ssu/euk-95/unassigned-table.qza \
-  --i-taxonomy taxa_id/ssu/euk-90/classification.qza \
-  --p-include unassigned \
-  --o-filtered-table taxa_id/ssu/euk-90/unassigned-table.qza
-
-
-# 80%
-qiime taxa filter-table \
-  --i-table taxa_id/ssu/euk-90/unassigned-table.qza \
-  --i-taxonomy taxa_id/ssu/euk-80/classification.qza \
-  --p-exclude unassigned \
-  --o-filtered-table taxa_id/ssu/euk-80/assigned-table.qza
-
-qiime taxa filter-table \
-  --i-table taxa_id/ssu/euk-90/unassigned-table.qza \
-  --i-taxonomy taxa_id/ssu/euk-80/classification.qza \
-  --p-include unassigned \
-  --o-filtered-table taxa_id/ssu/euk-80/unassigned-table.qza
 <br><br>
 ## STEP 10: Merging Taxonomic Tables And Classification Files
 
