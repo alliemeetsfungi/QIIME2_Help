@@ -703,21 +703,82 @@ qiime taxa filter-table \
 *Database ONE 80% Identity*
 ```
 qiime taxa filter-table \
-  --i-table path/to/search/results/database/directory-90/unassigned-table.qza \  #Your unassigned tabled made in the last step
-  --i-taxonomy path/to/search/results/database/directory-80/classification.qza \ #Classification file made from the second taxonomic query run
+  --i-table path/to/search/results/database/directory-90/unassigned-table.qza \
+  --i-taxonomy path/to/search/results/database/directory-80/classification.qza \
   --p-exclude unassigned \
   --o-filtered-table path/to/search/results/database/directory-80/assigned-table.qza
 
 qiime taxa filter-table \
-  --i-table path/to/search/results/database/directory-90/unassigned-table.qza \  #Your unassigned tabled made in the last step
-  --i-taxonomy path/to/search/results/database/directory-80/classification.qza \ #Classification file made from the second taxonomic query run
+  --i-table path/to/search/results/database/directory-90/unassigned-table.qza \
+  --i-taxonomy path/to/search/results/database/directory-80/classification.qza \
   --p-include unassigned \
   --o-filtered-table path/to/search/results/database/directory-80/unassigned-table.qza
 ```
 <br>
 Repeat these steps for the second database query results in sequence
-<br><br>
+```
+qiime taxa filter-table \
+  --i-table path/to/search/results/database/directory-80/unassigned-table.qza \
+  --i-taxonomy path/to/search/results/NEW-database/directory-95/classification.qza \
+  --p-exclude unassigned \
+  --o-filtered-table path/to/search/results/NEW-database/directory-95/assigned-table.qza
+
+qiime taxa filter-table \
+  --i-table path/to/search/results/database/directory-80/unassigned-table.qza \
+  --i-taxonomy path/to/search/results/NEW-database/directory-95/classification.qza \
+  --p-include unassigned \
+  --o-filtered-table path/to/search/results/NEW-database/directory-95/unassigned-table.qza
+
+
+qiime taxa filter-table \
+  --i-table path/to/search/results/NEW-database/directory-95/unassigned-table.qza \
+  --i-taxonomy path/to/search/results/NEW-database/directory-90/classification.qza \
+  --p-exclude unassigned \
+  --o-filtered-table path/to/search/results/NEW-database/directory-90/assigned-table.qza
+
+qiime taxa filter-table \
+  --i-table path/to/search/results/NEW-database/directory-95/unassigned-table.qza \
+  --i-taxonomy path/to/search/results/NEW-database/directory-90/classification.qza \
+  --p-include unassigned \
+  --o-filtered-table path/to/search/results/NEW-database/directory-90/unassigned-table.qza
+
+
+qiime taxa filter-table \
+  --i-table path/to/search/results/NEW-database/directory-90/unassigned-table.qza \
+  --i-taxonomy path/to/search/results/NEW-database/directory-80/classification.qza \
+  --p-exclude unassigned \
+  --o-filtered-table path/to/search/results/NEW-database/directory-80/assigned-table.qza
+
+qiime taxa filter-table \
+  --i-table path/to/search/results/NEW-database/directory-90/unassigned-table.qza \
+  --i-taxonomy path/to/search/results/NEW-database/directory-80/classification.qza \
+  --p-include unassigned \
+  --o-filtered-table path/to/search/results/NEW-database/directory-80/unassigned-table.qza
+```
+
 ## STEP 10: Merging Taxonomic Tables And Classification Files
+<br>Now we will merge all of the feature tables containing the assigned taxonomic features into one table. This does not need to be performed for the unassigned tables as 
+WHAT IS THE POINT OF THIS????
+NOTE: Tables must be listed from largest to smallest in order for the merge to actually work. Generally, your first search query table will be the largest and your last will be the smallest.
+```
+qiime feature-table merge \
+  --i-tables path/to/search/results/database/directory-95/assigned-table.qza \
+  --i-tables path/to/search/results/database/directory-90/assigned-table.qza \
+  --i-tables path/to/search/results/database/directory-80/assigned-table.qza \
+  --i-tables path/to/search/results/NEW-database/directory-95/assigned-table.qza \
+  --i-tables path/to/search/results/NEW-database/directory-90/assigned-table.qza \
+  --i-tables path/to/search/results/NEW-database/directory-80/assigned-table.qza \
+  --o-merged-table path/to/final/results/directory/all-assigned-features-table.qza \
+  --p-overlap-method sum
+```
+Convert the Qiime2 artifact into a visualization file.
+```
+qiime feature-table summarize \
+  --i-table path/to/final/results/directory/all-assigned-features-table.qza \
+  --o-visualization path/to/final/results/directory/all-assigned-features-table.qzv
+```
+Upload this onto the Qiime2 viewer and record the number of samples, features, and reads accounted for in the table containing all of your taxonomic assignments.
+<br>
 
 <br><br>
 ## STEP 11: Export Final Tables And Representative Sequences
