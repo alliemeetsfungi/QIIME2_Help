@@ -926,7 +926,8 @@ If you ran the pipeline on the HPC, you can log into your HPC accound and downlo
 ```
 # Download an entire directory
 scp -r user@koa.its.hawaii.edu:/home/user/path/to/results/directory/ \ ~/path/to/directory/on/local/drive/
-
+```
+```
 # Download a single file
 scp user@koa.its.hawaii.edu:/home/user/path/to/results/directory/file.ext \ ~/path/to/directory/on/local/drive/
 ```
