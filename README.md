@@ -904,17 +904,16 @@ If you prefer to use a .csv file (which programs such as R Studio can play nicer
 ```
 sed 's/\t/,/g' path/to/results/directory/feature-table/final-feature-table.tsv > path/to/results/directory/feature-table/final-feature-table.csv
 ```
-<br>
-*Export Representative Sequences (feature-rep-seqs.qza)*<br>
-The code below converts the Qiime2 artifact containing the representative sequnces into a fasta file automatically names dna-sequences.fasta file inside of the directory named "rep-seqs"
+
+*Export Representative Sequences (feature-rep-seqs.qza)*
+<br>The code below converts the Qiime2 artifact containing the representative sequnces into a fasta file automatically names dna-sequences.fasta file inside of the directory named "rep-seqs"
 ```
 qiime tools export \
   --input-path path/to/results/directory/feature-rep-seqs.qza \
   --output-path path/to/results/directory/rep-seqs
-  ```
-<br>
-*Export Taxonomy Table (feature-rep-seqs.qza)*<br>
-The code below converts the Qiime2 artifact containing the final taxa table (made in step 10: classification_merged_final.qza) into a .tsv file automatically named taxonomy.tsv inside of the directory named "taxonomy". Similarly as was seen for the feature table, if you prefer a .csv file you can convert the .tsv into a .csv file.
+```
+*Export Taxonomy Table (feature-rep-seqs.qza)*
+<br>The code below converts the Qiime2 artifact containing the final taxa table (made in step 10: classification_merged_final.qza) into a .tsv file automatically named taxonomy.tsv inside of the directory named "taxonomy". Similarly as was seen for the feature table, if you prefer a .csv file you can convert the .tsv into a .csv file.
 ```
 qiime tools export \
   --input-path path/to/final/results/directory/classification_merged_final.qza \
@@ -927,8 +926,10 @@ sed 's/\t/,/g' path/to/results/directory/taxonomy/taxonomy.tsv > path/to/results
 If you ran the pipeline on the HPC, you can log into your HPC accound and download the files. Alternatively, you can download them using the code belwo on the command line.
 ```
 # Download an entire directory
-scp -r user@koa.its.hawaii.edu:/home/user/path/to/results/directory/ \
-~/path/to/directory/on/local/drive/
+scp -r user@koa.its.hawaii.edu:/home/user/path/to/results/directory/ \ ~/path/to/directory/on/local/drive/
+
+# Download a single file
+scp user@koa.its.hawaii.edu:/home/user/path/to/results/directory/file.ext \ ~/path/to/directory/on/local/drive/
 ```
 
 
