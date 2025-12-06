@@ -64,8 +64,7 @@ Once you have activated Qiime2, set your working directory along the same path t
 ```
 cd /path/to/working/directory
 ```
-
-<br><br>
+<br>
 ### Installing Qiime2 on the HPC
 To access KOA on the command line run the code below, then enter your UH password & designate two factor authentication preference. NOTE: password is invisible and does not show key strokes!
 ```
