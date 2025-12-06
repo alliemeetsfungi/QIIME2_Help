@@ -107,12 +107,12 @@ cd /path/to/working/directory
 <br>
 
 ## STEP 2: Importing Sequences Into Qiime2
-**WARNING:** Importing sequencing files into a Qiime2 artifact can take anywhere from **2-10 hours** depending on how much processing power your computer has (if running Qiime2 on your local drive) and how large your data set is.<br>
+**WARNING:** Importing sequencing files into a Qiime2 artifact can take anywhere from **2-10 hours** depending on how much processing power your computer has (if running Qiime2 on your local drive) and how large your data set is.<br><br>
 The two approaches outlined below are for importing either (i) paired-end sequences (where you have a foward and reverse read for each sample) or (ii) single-end sequenes (generally only the foward read sequences for each sample) both of which use the Casava 1.8 method. This method requires sequences to be demultiplexed and in a specific format that is standard for sequences recieved from the Advanced Studies in Genomics, Proteomics, and Bioinformatics (ASGPB) center at University of Hawaiʻi at Mānoa. If your libraries were run outside of the University of Hawaiʻi at Mānoa, you may have to use an alternative importing approach. Further details on the formatting specifics required for importing sequences into a qiime2 artifact, as well as other methods available can be found [HERE](https://docs.qiime2.org/2024.10/tutorials/importing/).<br><br>
 Regardless of the approach you choose to take to import all of your .fastq.gz sequencing files into a single Qiime2 artifact there are <ins>two lines of code that should be modified</ins>. The first is the <ins>"--input-path"</ins> which should show the path to the folder where your sequencing files are stored. The second is the <ins>"--output-path"</ins> line which should contain the path where your want your Qiime2 artifcat to be stored, and what you want it to be named.
 <br><br>
 ### Import paired-end sequences using Casava 1.8 paired-end demultiplexed fastq method
-
+Modify the --input-path and --output-path lines to indicate where your sequences are stored, and where you want your Qiime2 artifact to be stored and named (described above) respectively.
 ```
 qiime tools import \
   --type 'SampleData[PairedEndSequencesWithQuality]' \
@@ -120,14 +120,13 @@ qiime tools import \
   --input-format CasavaOneEightSingleLanePerSampleDirFmt \
   --output-path path/to/where/qiime2/artifact/will/be/saved/file-name.qza
 ```
-Convert qiime artifcat into visualization file 
-<br>Qiime2 visualization files (.qzv) created from Qiime2 artifacts can be viewed [HERE](https://view.qiime2.org/?src=e96f979f-4cc6-46fc-800f-abe58740e4ea).<br>
+Convert the Qiime2 artifcat (.qza) into a Qiime2 visualization file (.qzv)
 ```
 qiime demux summarize \
   --i-data path/to/where/qiime2/artifact/was/saved/file-name.qza \
   --o-visualization path/to/where/qiime2/visual/file/will/be/saved/file-name.qzv
 ```
-Go to Qiime2 Viewer on browser and upload the .qzv file and check to see if Forward and Reverse read counts are the same! [HERE](https://forum.qiime2.org/t/demultiplexed-sequence-length-summary-identical-forward-and-reverse-for-emp-paired-end-reads/20692) is a forum with more information on this.
+Go to the Qiime2 Viewer on the browser found [HERE](https://view.qiime2.org/?src=e96f979f-4cc6-46fc-800f-abe58740e4ea) and upload the .qzv file to check and see if Forward and Reverse read counts are the same! The forum found [HERE](https://forum.qiime2.org/t/demultiplexed-sequence-length-summary-identical-forward-and-reverse-for-emp-paired-end-reads/20692) has more information on this.
 <br><ins>Record total reads</ins>
 
 <br>*Go to the "Interactive Quality Plot" tab*
