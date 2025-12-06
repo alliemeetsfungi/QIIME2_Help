@@ -1,5 +1,6 @@
 # Qiime2 Amplicon Sequence Cleanup
-All of the code used here is compatible with the package Qiime2 amplicon version 2024.10
+All of the code used here is compatible with the package <ins>Qiime2 amplicon version 2024.10.</ins><br>
+The instructions and code for installing on a local drive are for macOS (Apple Silicon), and linux for installing on an HPC, but can be applied to other machines with modification.
 
 ## Purpose: 
 This SOP is designed to assist those with using the Qiime2 package for (i) performing an initial quality control (cleaning) using DADA2 of all sequences by removing low quality sequences (quality filtering) and chimeric sequences, correcting sequencing errors that are present (denoising), grouping duplicate sequences, and merging paired end sequences (if maintaining both the forward and reverse sequences for all samples), and (ii) assigning taxonomy to reamining sequences using various databases. This procedure focuses specifically on fungal 18S and bacterial 16S bacterial sequences, but can be modified for other amplicons as needed.
@@ -8,31 +9,30 @@ This SOP is designed to assist those with using the Qiime2 package for (i) perfo
 For the purposes of this SOP, a local drive referes to your personal computer and the High Perfomance Computer (HPC) that is used is the University of Hawaiʻi at Mānoa's cluster named KOA which can be accessed through the online interface [HERE](https://koa.its.hawaii.edu/) or through the command line (described below). In order to get access to the cluster (KOA) you need to be associated with the University of Hawaiʻi at Mānoa, register for an account [HERE](https://datascience.hawaii.edu/eligibility-sign-up/), and take the required onboarding. Once those steps are completed you can access the cluser with your UH username (described below).
 <br><br>
 You will often see the word "path" which tells you the location of a folder (called a directory) or a file. For example, if you see something like this "path/to/folder/file.ext" this would indicate that the file "file.ext" is inside of the folder "folder" which is inisde of the folder "to" which is inside of the folder "path". The extension of the file (.ext) indicates what kind of file it is, you've seen this before for commone files such as PDF (.pdf) and Microsoft Office (.docx) files that contain different extensions.
-
+<br><br>
 ## STEP 1: Prepare Files & Environment
-<ins>Preparing Files For Qiime2</ins>
-To begin, make sure sequences are downloaded in an accessible location as fastq.gz files on the local drive. If you're sequences are in the .fastq format, you can compress each .fastq file in a directory into .fastq.gz files.
+<ins>Preparing Files For Qiime2</ins><br>
+To begin, make sure sequences are downloaded in an accessible location as fastq.gz files on the local drive.<br>
+If you're sequences are in the .fastq format, you can compress each .fastq file in a directory into .fastq.gz files:
 ```
 gzip path/to/fastq/sequence/files/*.fastq
 ```
-If you plan on using the HPC, theses .fast.qz files will need to be uploaded onto the cluster.
+If you plan on using the HPC, theses .fast.qz files will need to be uploaded onto the cluster:
 ```
 scp -r "path/to/folder" \ 
 user@koa.its.hawaii.edu:/home/user/path/to/directory/for/files
 ```
 
-The instructions below include code for installing on a local drive for macOS (Apple Silicon), and  linux for installing on the HPC, but can be applied to other machines with modification. Instructions for downloading Qiime2 can be found on the Qiime2 website found [HERE](https://docs.qiime2.org/2024.10/install/native/). 
-<br>
-
-### Using local drive
-
-<br><ins>Download Qiime2 on local drive</ins>
+### Installing Qiime2 on Local Drive (Apple Silicon)
+Further information for downloading Qiime2 on other interfaces can be found on the Qiime2 website found [HERE](https://docs.qiime2.org/2024.10/install/native/). 
+<br><br>
+Open the terminal and run the code line below.<br>
+NOTE: The line after "-n" is what the environment will be named, in the code below it is "qiime2-amplicon-2024.10" but this can be changed to anything! You will use this name to activate Qiime2 on your local drive, *so take note of whatever you name it!*
 ```
 CONDA_SUBDIR=osx-64 conda env create -n qiime2-amplicon-2024.10 --file https://data.qiime2.org/distro/amplicon/qiime2-amplicon-2024.10-py310-osx-conda.yml
 conda activate qiime2-amplicon-2024.10
 conda config --env --set subdir osx-64
 ```
-NOTE: line after -n is what the environment will be named, in the code below it is "qiime2" but could be anything! You will use this name to activate Qiime2 on the HPC, so take note of whatever you name it.
 <br><br>**The following output (or very similar) should be produced in the terminal window:**
 <br>Channels:
 <br> - https://packages.qiime2.org/qiime2/2024.10/amplicon/released
