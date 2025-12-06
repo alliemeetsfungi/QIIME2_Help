@@ -88,9 +88,9 @@ Check the conda environment to make sure it installed correctly by looking for w
 conda info - e
 ```
 Here is an example of what is printed on my command line when I run the code above:<br>
-conda environments:<br>
-qiime2    /home/alliej/.conda/envs/qiime2<br>
-base      /opt/apps/software/lang/Anaconda3/2024.02-1<br><br>
+*conda environments:*<br>
+*qiime2    /home/alliej/.conda/envs/qiime2*<br>
+*base      /opt/apps/software/lang/Anaconda3/2024.02-1*<br><br>
 <ins>Activating Qiime2 on HPC</ins>
 <br>NOTE: this is different than how conda is activated on a local drive or personal computer!
 <br>For each new session, make sure you perform the following prior to activating Qiime2:
