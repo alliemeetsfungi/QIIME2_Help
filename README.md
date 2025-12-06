@@ -22,19 +22,18 @@ If you plan on using the HPC, theses .fast.qz files will need to be uploaded ont
 scp -r "path/to/folder" \ 
 user@koa.its.hawaii.edu:/home/user/path/to/directory/for/files
 ```
-
 ### Installing Qiime2 on Local Drive (Apple Silicon)
 Further information for downloading Qiime2 on other interfaces can be found on the Qiime2 website found [HERE](https://docs.qiime2.org/2024.10/install/native/). 
 <br><br>
 Open the terminal and run the code line below.<br>
-NOTE: The line after "-n" is what the environment will be named, in the code below it is "qiime2-amplicon-2024.10" but this can be changed to anything! You will use this name to activate Qiime2 on your local drive, *so take note of whatever you name it!*
+NOTE: The line after "-n" is what the environment will be named, in the code below it is "qiime2-amplicon-2024.10" but this can be changed to anything! You will use this name to activate Qiime2 on your local drive, **take note of whatever you name it!**
 ```
 CONDA_SUBDIR=osx-64 conda env create -n qiime2-amplicon-2024.10 --file https://data.qiime2.org/distro/amplicon/qiime2-amplicon-2024.10-py310-osx-conda.yml
 conda activate qiime2-amplicon-2024.10
 conda config --env --set subdir osx-64
 ```
-<br><br>**The following output (or very similar) should be produced in the terminal window:**
-<br>Channels:
+<ins>The following output (or very similar) should be printed on the terminal window:</ins>
+<br>*Channels:
 <br> - https://packages.qiime2.org/qiime2/2024.10/amplicon/released
 <br> - conda-forge
 <br> - bioconda
@@ -45,8 +44,13 @@ conda config --env --set subdir osx-64
 <br>Solving environment: done
 <br><br>Downloading and Extracting Packages:
 openjdk-22.0.1       | 168.9 MB  | #####################################################################################4                   |  82%
-<br><br>Preparing transaction: done                                                                            <br>Verifying transaction: done                                                                            <br>Executing transaction: done
-<br><br>To activate this environment, use                                                                      <br><br>$ conda activate qiime2-amplicon-2024.10                                                               <br><br>To deactivate an active environment, use                                                               <br><br> $ conda deactivate 
+<br><br>Preparing transaction: done
+<br>Verifying transaction: done
+<br>Executing transaction: done
+<br><br>To activate this environment, use
+<br><br>$ conda activate qiime2-amplicon-2024.10
+<br><br>To deactivate an active environment, use
+<br><br> $ conda deactivate *
 <br><br><ins>If nothing appears, run the code below and re-run the installation code </ins>
 ```
 conda config --set channel_priority flexible
