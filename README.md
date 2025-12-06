@@ -33,24 +33,24 @@ conda activate qiime2-amplicon-2024.10
 conda config --env --set subdir osx-64
 ```
 <ins>The following output (or very similar) should be printed on the terminal window:</ins>
-<br>*Channels:
-<br> - https://packages.qiime2.org/qiime2/2024.10/amplicon/released
-<br> - conda-forge
-<br> - bioconda
-<br> - defaults
-<br> - mamba
-<br>Platform: osx-64
-<br>Collecting package metadata (repodata.json): done
-<br>Solving environment: done
-<br><br>Downloading and Extracting Packages:
-openjdk-22.0.1       | 168.9 MB  | #####################################################################################4                   |  82%
-<br><br>Preparing transaction: done
-<br>Verifying transaction: done
-<br>Executing transaction: done
-<br><br>To activate this environment, use
-<br><br>$ conda activate qiime2-amplicon-2024.10
-<br><br>To deactivate an active environment, use
-<br><br> $ conda deactivate *
+<br>*Channels:*
+<br> *- https://packages.qiime2.org/qiime2/2024.10/amplicon/released*
+<br> *- conda-forge*
+<br> *- bioconda*
+<br> *- defaults*
+<br> *- mamba*
+<br>*Platform: osx-64*
+<br>*Collecting package metadata (repodata.json): done*
+<br>*Solving environment: done*
+<br><br>*Downloading and Extracting Packages:*
+*openjdk-22.0.1       | 168.9 MB  | #####################################################################################4                   |  82%*
+<br><br>*Preparing transaction: done*
+<br>*Verifying transaction: done*
+<br>*Executing transaction: done*
+<br><br>*To activate this environment, use*
+<br><br>*$ conda activate qiime2-amplicon-2024.10*
+<br><br>*To deactivate an active environment, use*
+<br><br> *$ conda deactivate *
 <br><br><ins>If nothing appears, run the code below and re-run the installation code </ins>
 ```
 conda config --set channel_priority flexible
