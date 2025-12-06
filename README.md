@@ -126,22 +126,19 @@ qiime demux summarize \
   --i-data path/to/where/qiime2/artifact/was/saved/file-name.qza \
   --o-visualization path/to/where/qiime2/visual/file/will/be/saved/file-name.qzv
 ```
-Go to the Qiime2 Viewer on the browser found [HERE](https://view.qiime2.org/?src=e96f979f-4cc6-46fc-800f-abe58740e4ea) and upload the .qzv file to check and see if Forward and Reverse read counts are the same! The forum found [HERE](https://forum.qiime2.org/t/demultiplexed-sequence-length-summary-identical-forward-and-reverse-for-emp-paired-end-reads/20692) has more information on this.
-<br><ins>Record total reads</ins>
-
-<br>*Go to the "Interactive Quality Plot" tab*
-<br>Here, you can observe the quality of reads (y-axis) at a specific sequence length (x-axis) and assess (1) wether sequences should be trimmed and (2) how much they should be trimmed. The quality score tells us how confidently the nucleotide was called at that area, higher quality scores indicate higher confidence that the detected nucleotide is correct and not an error. Generally, quality scores below 20 are considered poor and unreliable reads which can lead to inacurate taxonomic identification later on.  
-<br><ins>Approach to deciding how much to trim:</ins>
+Go to the Qiime2 Viewer on the browser found [HERE](https://view.qiime2.org/?src=e96f979f-4cc6-46fc-800f-abe58740e4ea) and upload the .qzv file to check and see if Forward and Reverse read counts are the same! The forum found [HERE](https://forum.qiime2.org/t/demultiplexed-sequence-length-summary-identical-forward-and-reverse-for-emp-paired-end-reads/20692) has more information on this.<br>
+<ins>Using the Qiime2 Viewer, perform the following</ins><br>
+1. Record the total reads present for all your sequences.<br>
+2. Observe the quality of forward and reverse reads.<br>
+*To Observe the read quality, go to the "Interactive Quality Plot" tab*<br>
+Here, you can observe the quality of reads (y-axis) at a specific sequence length (x-axis) and assess (i) wether sequences should be trimmed, and (ii) how much they should be trimmed. The quality score tells us how confidently the nucleotide was called at that area such that higher quality scores indicate higher confidence that the detected nucleotide is correct and not an error. Generally, quality scores below 20 are considered poor and unreliable reads which can lead to inacurate taxonomic identification later on. You can zoom in and out of the quality plots by highlighting regions of interest. To zoom back out to see the entire plot, just double click the plot.
+<br><ins>Approach to deciding how much to trim:</ins><br>
+NOTE: Reverse reads are generally lower in quality and may require more trimming than Forward reads. However, if you want to be able to merge your paired end sequencese they must be long enough to have a minimum of 20 bp overlap (although I have found that it takes closer to 50 bp overlap for sequences to merge succesfully). Make sure you know how long you amplicon is to assess what the minimum length required for your forward and reverse reads needs sto be in order for them to be merged before trimming.
 1. Observe how consistent the quality is by assessing the sequence length at which the quality begins to drop abrubptly, as well as how steep the drop in quality is.
 2. Determine at what sequence length the quality score begins to drop under 20.
-3. You can zoom in and out of the quality plots by highlighting regions of interest, and double clicking the plot to zoom back out again.
-4. Note that Reverse reads are generally lower in quality and may require more trimming than Forward reads.
-5. Take a screen shot of the quality plots for your records.
-
-If you want to record or observe reads per sample, scroll to the very bottom of the "Overview" page and click "Download as TSV" to download per-sample-fastq-counts.tsv
-
-<ins>If total read counts are different for Forward and Reverse sequences, check the following:</ins>
-
+3. Take a screen shot of the quality plots for your records.
+4. If you want to record or look over reads per sample, scroll to the very bottom of the *"Overview"* tab and click "Download as TSV" to download per-sample-fastq-counts.tsv<br><br>
+<ins>If total read counts are different for Forward and Reverse sequences, check the following:</ins><br>
 1. All files were uploaded correctly (should not be 0 bytes).
 <br>Go to directory where sequencing files are kept
 ```
