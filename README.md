@@ -139,7 +139,7 @@ NOTE: Reverse reads are generally lower in quality and may require more trimming
 3. Take a screen shot of the quality plots for your records.
 4. If you want to record or look over reads per sample, scroll to the very bottom of the *"Overview"* tab and click "Download as TSV" to download per-sample-fastq-counts.tsv
 
-<br><br><ins>If total read counts are different for Forward and Reverse sequences, check the following:</ins>
+<br><ins>If total read counts are different for Forward and Reverse sequences, check the following:</ins>
 <br>1. All files were uploaded correctly (should not be 0 bytes).
 <br>Go to directory where sequencing files are kept
 ```
