@@ -9,7 +9,7 @@ This SOP is designed to assist those with using the Qiime2 package for (i) perfo
 For the purposes of this SOP, a local drive referes to your personal computer and the High Perfomance Computer (HPC) that is used is the University of Hawaiʻi at Mānoa's cluster named KOA which can be accessed through the online interface [HERE](https://koa.its.hawaii.edu/) or through the command line (described below). In order to get access to the cluster (KOA) you need to be associated with the University of Hawaiʻi at Mānoa, register for an account [HERE](https://datascience.hawaii.edu/eligibility-sign-up/), and take the required onboarding. Once those steps are completed you can access the cluser with your UH username (described below).
 <br><br>
 You will often see the word "path" which tells you the location of a folder (called a directory) or a file. For example, if you see something like this "path/to/folder/file.ext" this would indicate that the file "file.ext" is inside of the folder "folder" which is inisde of the folder "to" which is inside of the folder "path". The extension of the file (.ext) indicates what kind of file it is, you've seen this before for commone files such as PDF (.pdf) and Microsoft Office (.docx) files that contain different extensions.
-<br><br>
+<br>
 ## STEP 1: Prepare Files & Environment
 <ins>Preparing Files For Qiime2</ins><br>
 To begin, make sure sequences are downloaded in an accessible location as fastq.gz files on the local drive.<br>
@@ -110,7 +110,7 @@ cd /path/to/working/directory
 **WARNING:** Importing sequencing files into a Qiime2 artifact can take anywhere from **2-10 hours** depending on how much processing power your computer has (if running Qiime2 on your local drive) and how large your data set is.<br><br>
 The two approaches outlined below are for importing either (i) paired-end sequences (where you have a foward and reverse read for each sample) or (ii) single-end sequenes (generally only the foward read sequences for each sample) both of which use the Casava 1.8 method. This method requires sequences to be demultiplexed and in a specific format that is standard for sequences recieved from the Advanced Studies in Genomics, Proteomics, and Bioinformatics (ASGPB) center at University of Hawaiʻi at Mānoa. If your libraries were run outside of the University of Hawaiʻi at Mānoa, you may have to use an alternative importing approach. Further details on the formatting specifics required for importing sequences into a qiime2 artifact, as well as other methods available can be found [HERE](https://docs.qiime2.org/2024.10/tutorials/importing/).<br><br>
 Regardless of the approach you choose to take to import all of your .fastq.gz sequencing files into a single Qiime2 artifact there are <ins>two lines of code that should be modified</ins>. The first is the <ins>"--input-path"</ins> which should show the path to the folder where your sequencing files are stored. The second is the <ins>"--output-path"</ins> line which should contain the path where your want your Qiime2 artifcat to be stored, and what you want it to be named.
-<br><br>
+<br>
 ### Import paired-end sequences using Casava 1.8 paired-end demultiplexed fastq method
 Modify the --input-path and --output-path lines to indicate where your sequences are stored, and where you want your Qiime2 artifact to be stored and named (described above) respectively.
 ```
@@ -137,8 +137,7 @@ NOTE: Reverse reads are generally lower in quality and may require more trimming
 1. Observe how consistent the quality is by assessing the sequence length at which the quality begins to drop abrubptly, as well as how steep the drop in quality is.
 2. Determine at what sequence length the quality score begins to drop under 20.
 3. Take a screen shot of the quality plots for your records.
-4. If you want to record or look over reads per sample, scroll to the very bottom of the *"Overview"* tab and click "Download as TSV" to download per-sample-fastq-counts.tsv
-
+4. If you want to record or look over reads per sample, scroll to the very bottom of the *"Overview"* tab and click "Download as TSV" to download per-sample-fastq-counts.tsv.
 <br><ins>If total read counts are different for Forward and Reverse sequences, check the following:</ins>
 <br>1. All files were uploaded correctly (should not be 0 bytes).
 <br>Go to directory where sequencing files are kept
@@ -188,7 +187,7 @@ qiime demux summarize \
 ```
 See paired-end section for next steps using the Qiime2 visualization file (.qzv)
 <br><br>If running multiple tests on the same set of sequences, single end and paired-end outputs should have the same output parameters for the forward sequences.
-<br><br>
+<br>
 ## STEP 3: Trim Primers From Sequences
 To trim primers from all sequences, Qiime2 uses uses cutadapt (handbook found [HERE](https://docs.qiime2.org/2024.10/plugins/available/cutadapt/index.html)).
 <br>For background on trimming Golay barcodes see [THIS](https://forum.qiime2.org/t/cutadapt-adapter-vs-front/15450) forum page.
@@ -252,7 +251,7 @@ qiime demux summarize \
 ```
 See paired-end section for next steps using the Qiime2 visualization file (.qzv)
 <br><br>If running multiple tests on the same set of sequences, single end and paired-end outputs should have identical parameters.
-<br><br>
+<br>
 ## STEP 4: DADA2 - Trimming, Merging, Denoising, and Feature Calling of Sequences
 To assure that the most features will be detected, multiple tests will be run at this step based on post primer trimming quality plots.
 <br><br>This process will produce three Qiime2 artifacts:
@@ -377,10 +376,10 @@ qiime metadata tabulate \
 ```
 As described above, make sure that the number of samples, features, reads, sequence length statistics, and denoising statistics are recorded when provided, and download any file of interest (described above).
 <br><br><ins>Once all tests have been run, compare the number of features and number of samples with sufficient read retention among all tests.</ins> The test with the highest amount of features and samples with sufficient read retention should be used from this point forward.
-
+<br>
 ## STEP 5 (OPTIONAL!): Cluster ASVs into OTUs
-Use the feature table and representative sequences from the DADA2 cleanup with the best feature count and sample read retention outcome.
-<br><br>Cluster sequences into 97% identity
+Using the feature table and representative sequences from the DADA2 cleanup with the best feature count and sample read retention outcome, ASVs can be clustered into OTUs if desired with the code below. Use these outputs for the subsequent steps in this SOP if you plan on assessing OTUs instead of ASVs for downstream analyses.
+<br><br>Cluster sequences into 97% identity, and convert all output .qza artifact files into .qzv visualization files for assessment.
 ```
 qiime vsearch cluster-features-de-novo \
   --i-table path/to/results/directory/feature-table.qza \
@@ -389,25 +388,22 @@ qiime vsearch cluster-features-de-novo \
   --o-clustered-table path/to/results/directory/otu-feature-table.qza \
   --o-clustered-sequences path/to/results/directory/otu-feature-rep-seqs.qza \
   --verbose
-```
-Convert feature table artifact (otu-feature-table.qza) into visualization file (otu-feature-table.qzv)
-```
+
+# Feature Table
 qiime feature-table summarize \
   --i-table path/to/results/directory/otu-feature-table.qza \
   --o-visualization path/to/results/directory/otu-feature-table.qzv
-```
-Record number of features and sequencing reads
-<br><br>Convert artifact containing representative sequences (otu-feature-rep-seqs.qza) into visualization file (otu-feature-rep-seqs.qzv)
-```
+
+# Representative Sequences
 qiime feature-table tabulate-seqs \
   --i-data path/to/results/directory/otu-feature-rep-seqs.qza \
   --o-visualization path/to/results/directory/otu-feature-rep-seqs.qzv
 ```
-Download .fasta file containing feature representative sequences
-
-<br><br>
-## STEP 6: Export Feature Table For Culling
-The resulting files can be imported into R for initial culling assesment
+Download .fasta file containing feature representative sequences if desired.<br>
+NOTE: Denoising statistics from the original output in STEP 4 will be the same and does not have an OTU specific output.
+<br>
+## STEP 6: Export Feature Table For Culling (OPTIONAL)
+The resulting files can be imported into R for initial culling assesment, or you can skip this for now and export at the end after taxonomic assignment. Do so now will allow you to set your culling thresholds for sample and features  while your taxonomic assignments run. However, if you are using Phyloseq for your culling steps (as is standard for our lab), it is easier to wait until the taxonomic table can be included in the phyloseq object when removing samples and features. 
 <br><br>Export cleaned feature table to new directory
 ```
 qiime tools export \
@@ -425,12 +421,13 @@ Convert .tsv to .csv
 ```
 sed 's/\t/,/g' path/to/results/directory/feature-table-directory/feature-table.tsv > path/to/results/directory/feature-table-directory/feature-table.csv
 ```
-<br><br>Download final table in new command line window on local drive (not signed into KOA).
+If you've been performing all of these steps on the HPC, you can download the final table in new command line window connected to your local drive (not signed into KOA).
 ```
 scp user@koa.its.hawaii.edu:/home/user/path/to/results/directory/feature-table-directory/feature-table.csv \
 path/to/local/drive/directory
 ```
-<br><br>
+The files should now be in your chosen directory and ready for import into R for culling.
+<br>
 ## STEP 7: Import Databases For Taxonomic Identification
 The following databases are the most commonly used for our studies. Some require files to be downloaded from the database webpage, while other databases can be pulled directly through Qiime2.
 <br><br><ins>SILVA</ins>
