@@ -548,7 +548,9 @@ qiime taxa filter-seqs \
   --p-include unassigned \                                                                    #Key word for what you are filtering for (i.e, keeping)
   --o-filtered-sequences path/to/search/results/database/directory-95/unassigned-rep-seqs.qza #Remaining sequences that did not have taxa assigned under these BLAST search parameteres
 ```
-<br>*90% Identity*
+The final output made here (path/to/search/results/database/directory-95/unassigned-rep-seqs.qza) will be used as the input file for the next search query!<br>
+<ins>90% Identity</ins><br>
+The same code will be used for this search query, with the exception of the input file (which should be changed to your final filtered output file), the percent identity (change from 0.95 to 0.90), and the output directory.
 ```
 qiime feature-classifier classify-consensus-blast \
   --i-query path/to/search/results/database/directory-95/unassigned-rep-seqs.qza \ #Change to ouput file from the previous filtered sequences that remain unassigned
@@ -562,7 +564,7 @@ qiime feature-classifier classify-consensus-blast \
   --p-min-consensus 0.51 \
   --output-dir path/to/search/results/database/directory-90
 ```
-Filter out remaining unassigned sequences from this query search into their own file
+Filter out remaining unassigned sequences from this query search into their own file in the new directory.
 ```
 qiime taxa filter-seqs \
   --i-sequences path/to/search/results/database/directory-95/unassigned-rep-seqs.qza \        #Use the input file for the BLAST search (unassigned-rep-seqs.qza)
@@ -570,7 +572,9 @@ qiime taxa filter-seqs \
   --p-include unassigned \
   --o-filtered-sequences path/to/search/results/database/directory-90/unassigned-rep-seqs.qza #Remaining sequences that did not have taxa assigned under these search parameteres
 ```
-<br>*80% Identity*
+Using this final output, repeat the steps performed for 95% and 90% identities at 80% identity.
+<br>
+<ins>80% Identity</ins>
 ```
 qiime feature-classifier classify-consensus-blast \
   --i-query path/to/search/results/database/directory-90/unassigned-rep-seqs.qza \ #Change to ouput file from the previous filtered sequences that remain unassigned
@@ -590,11 +594,10 @@ qiime taxa filter-seqs \
   --p-include unassigned \
   --o-filtered-sequences path/to/search/results/database/directory-80/unassigned-rep-seqs.qza
 ```
-Run remaining unassignd sequences through the next databse!
-<br><br><ins>Database TWO</ins>
-<br>*95% Identity*
-At this step, you need to change the path for reference sequences and taxa to the files associated with the new databases reference sequences and taxa
-The remaining unassigned representative sequences file from the previous database should be used for --i-query (unassigned-rep-seqs.qza)
+Now the remaining unassignd sequences can be run through the next database!
+<br><br>**Database TWO**
+<ins>95% Identity</ins>
+At this step, you need to change the path for the reference sequences (--i-reference-reads) and taxa (--i-reference-taxonomy) to the files associated with the new databases reference sequences and taxa. The remaining unassigned representative sequences (unassigned-rep-seqs.qza) from the previous database should be used for --i-query.
 ```
 qiime feature-classifier classify-consensus-blast \
   --i-query path/to/search/results/database/directory-80/unassigned-rep-seqs.qza \ #Remaining unnasigned representative sequences from first database
@@ -614,8 +617,9 @@ qiime taxa filter-seqs \
   --p-include unassigned \
   --o-filtered-sequences path/to/search/results/NEW-database/directory-95/unassigned-rep-seqs.qza
 ```
-<br>Continue on to run the remaining unassigned representative sequences at 90% and 80% identities for this database, the same as you did for the first database.
+Continue on to run the remaining unassigned representative sequences at 90% and 80% identities for this database as you did for the first database.
 ```
+# 90% Identity BLAST Search
 qiime feature-classifier classify-consensus-blast \
   --i-query path/to/search/results/NEW-database/directory-95/unassigned-rep-seqs.qza \
   --i-reference-reads path/to/NEW-database/ref-seqs.qza \
@@ -628,13 +632,14 @@ qiime feature-classifier classify-consensus-blast \
   --p-min-consensus 0.51 \
   --output-dir path/to/search/results/NEW-database/directory-90
 
+# Filter out remaining unassigned sequences
 qiime taxa filter-seqs \
   --i-sequences path/to/search/results/NEW-database/directory-95/unassigned-rep-seqs.qza \
   --i-taxonomy path/to/search/results/NEW-database/directory-90/classification.qza \
   --p-include unassigned \
   --o-filtered-sequences path/to/search/results/NEW-database/directory-90/unassigned-rep-seqs.qza
 
-
+# 80% Identity BLAST Search
 qiime feature-classifier classify-consensus-blast \
   --i-query path/to/search/results/NEW-database/directory-90/unassigned-rep-seqs.qza \
   --i-reference-reads path/to/NEW-database/ref-seqs.qza \
@@ -647,13 +652,14 @@ qiime feature-classifier classify-consensus-blast \
   --p-min-consensus 0.51 \
   --output-dir path/to/search/results/NEW-database/directory-80
 
+# Filter out remaining unassigned sequences
 qiime taxa filter-seqs \
   --i-sequences path/to/search/results/NEW-database/directory-90/unassigned-rep-seqs.qza \
   --i-taxonomy path/to/search/results/NEW-database/directory-80/classification.qza \
   --p-include unassigned \
-  --o-filtered-sequences path/to/databse/search/results/NEW-database/directory-80/unassigned-rep-seqs.qza
+  --o-filtered-sequences path/to/database/search/results/NEW-database/directory-80/unassigned-rep-seqs.qza
 ```
-If you have more databases you are interested in running your representative sequences through for furhter taxonomic assignment, repeat these steps for each additional database. See (INSERT MY OWN PIPELINES HERE) for reference on using multiple databases for taxonomic assignment with a real dataset. 
+If you have more databases you are interested in running your representative sequences through for furhter taxonomic assignment, repeat these steps for each additional database. See (INSERT MY OWN PIPELINES HERE) for reference on using multiple databases for taxonomic assignment with a real dataset.
 <br>
 ## STEP 9: Filtering Feature Tables (OPTIONAL)
 Once you are satisfied with your taxonomic assignments using your representative sequences, you can filter your actual feature table to make tables that contain only taxonomically assigned features, or conversely only the remaining unassigned features.
