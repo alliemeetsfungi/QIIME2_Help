@@ -1,5 +1,5 @@
 # Qiime2 Amplicon Sequence Cleanup
-All of the code used here is compatible with the package <ins>Qiime2 amplicon version 2024.10.</ins>, documents and other tutorials for this version can be found [HERE](https://docs.qiime2.org/2024.10/).<br>
+All of the code used here is compatible with the package <ins>Qiime2 amplicon version 2024.10.</ins>, documents and other tutorials for this version can be found [HERE](https://docs.qiime2.org/2024.10/).<br><br>
 The instructions and code for installing on a local drive are for macOS (Apple Silicon), and linux for installing on an HPC, but can be applied to other machines with modification.
 
 ## Purpose:
@@ -34,7 +34,7 @@ conda config --env --set subdir osx-64
 ```
 <ins>The following output (or very similar) should be printed on the terminal window:</ins>
 <br>*Channels:*
-<br> *- https://packages.qiime2.org/qiime2/2024.10/amplicon/released*
+<br> *- "https://packages.qiime2.org/qiime2/2024.10/amplicon/released"*
 <br> *- conda-forge*
 <br> *- bioconda*
 <br> *- defaults*
@@ -934,5 +934,15 @@ scp -r user@koa.its.hawaii.edu:/home/user/path/to/results/directory/ \ ~/path/to
 # Download a single file
 scp user@koa.its.hawaii.edu:/home/user/path/to/results/directory/file.ext \ ~/path/to/directory/on/local/drive/
 ```
-
+<br><br><br>
+### References
+1. Qiime2
+2. Eukaryome
+3. Maarjam
+4. Silva
+5. greengenes2
+6. ncbi
+7. gtdb
+8. unite
+9. others?
 
