@@ -665,7 +665,7 @@ If you have more databases you are interested in running your representative seq
 Once you are satisfied with your taxonomic assignments using your representative sequences, you can filter your actual feature table to contain only taxonomically assigned features, or conversely only the remaining unassigned features.<br><br>
 **Database ONE**<br>
 Begin with your original DADA2 feature table as your input table (feature-table.qza) and your classification file made from your first database at 95% identity.<br><br>
-Filtering for <ins>assigned</ins\> features:
+Filtering for <ins>assigned</ins> features:
 ```
 qiime taxa filter-table \
   --i-table path/to/results/directory/feature-table.qza \                            #Your feature table from DADA2
