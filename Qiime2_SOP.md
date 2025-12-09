@@ -208,7 +208,7 @@ See Jason Baer's paper [HERE](https://academic.oup.com/ismej/article/19/1/wraf22
   <br>Amplicon ~ 484 bp (*Vaulot et al., 2022. Table. S2*)
   <br>18S-82F (Forward Primer): 5′-GAAACTGCGAATGGCTC-3′
   <br>Euk-516R (Reverse Primer): 5′-ACCAGACTTGCCCTCC-3′
-<br><br><ins>Orchid Mycorrhizal Fungi (OMF)</ins> Internal Transcribed Spacer 2 (ITS2) amplicon using fITS7 paired with either Tul1F or Tul2F</ins>
+<br><br><ins>Orchid Mycorrhizal Fungi (OMF)</ins> Internal Transcribed Spacer 2 (ITS2) amplicon (*Wang et al., 2023*).
   <br>Amplicon ~
   <br>fITS7 (Forward Primer): 5′-GTGARTCATCGAATCTTTG-3′
   <br>ITS4 (Reverse Primer): 5′-TCCTCCGCTTATTGATATGC-3′
@@ -218,6 +218,10 @@ See Jason Baer's paper [HERE](https://academic.oup.com/ismej/article/19/1/wraf22
   <br>Amplicon ~
   <br>Tul2F (Forward Primer): 5′-TGGATCCCTTGGCACGTC-3′
   <br>ITS4-Tul2 (Reverse Primer): 5′-TTCTTTTCCTCCGCTGAWTA-3′
+<br><br><ins>Fungi Internal Transcribed Spacer 1 (ITS1)</ins> using ITS1f/ITS2 primers (*CITE*)
+  <br>Amplicon ~ 230 bp [EMP Protocol](https://earthmicrobiome.ucsd.edu/protocols-and-standards/its/)
+  <br>ITS1f (Forward Primer): 5′-CTTGGTCATTTAGAGGAAGTAA-3′
+  <br>ITS2 (Reverse Primer): 5′-GCTGCGTTCTTCATCGATGC-3′
 <br>
 ### Trim Primers From Paired-end Sequences
 This method trims primers based on primer sequence rather than length, assuring that the correct region is trimmed off rather than only trimming off the initial ambiguous regions commonly seen in sequencing results (i.e., a region with NNNNNNN).
@@ -965,7 +969,7 @@ scp user@koa.its.hawaii.edu:/home/user/path/to/results/directory/file.ext \ ~/pa
 
 13. Tedersoo, L., Hosseyni Moghaddam, M. S., Mikryukov, V., Hakimzadeh, A., Bahram, M., Nilsson, R. H., Yatsiuk, I., Geisen, S., Schwelm, A., Piwosz, K., Prous, M., Sildever, S., Chmolowska, D., Rueckert, S., Skaloud, P., Laas, P., Tines, M., Jung, J.-H., Choi, J. H., … Anslan, S. (2024). EUKARYOME: The rRNA gene reference database for identification of all eukaryotes. Database, 2024, baae043. https://doi.org/10.1093/database/baae043
 
-14. Wang, D., Trimbos, K. B., Gomes, S. I. F., Jacquemyn, H., & Merckx, V. S. F. T. (2024). Metabarcoding read abundances of orchid mycorrhizal fungi are correlated to copy numbers estimated using ddPCR. New Phytologist, 242(4), 1825–1834. https://doi.org/10.1111/nph.19385
+14. Wang, D., Gebauer, G., Jacquemyn, H., Zahn, F. E., Gomes, S. I. F., Lorenz, J., Van Der Hagen, H., Schilthuizen, M., & Merckx, V. S. F. T. (2023). Variation in mycorrhizal communities and the level of mycoheterotrophy in grassland and Forest populations of Neottia ovata (Orchidaceae). Functional Ecology, 37(7), 1948–1961. https://doi.org/10.1111/1365-2435.14354
 
 15. White TJ, Bruns T, Lee S, Taylor J. 1990. Ampliﬁcation and direct sequencingof fungal ribosomal RNA genes for phylogenetics. In: Innis MA, Gelfand DH,Sninsky JJ, White TJ, eds. PCR protocols: a guide to methods and applications.New York, NY, USA: Academic Press, 315–322
 
