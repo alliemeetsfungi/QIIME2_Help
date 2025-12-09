@@ -1,5 +1,5 @@
 # Qiime2 Amplicon Sequencing Cleanup
-All of the code used here is compatible with the package <ins>Qiime2 amplicon version 2024.10.</ins>, documents and other tutorials for this version can be found [HERE](https://docs.qiime2.org/2024.10/).<br><br>
+All of the code used here is compatible with the package <ins>Qiime2 amplicon version 2024.10.</ins> (*Bolyen et al., 2019*), documents and other tutorials for this version can be found [HERE](https://docs.qiime2.org/2024.10/).<br><br>
 The instructions and code for installing on a local drive are for macOS (Apple Silicon), and linux for installing on an HPC, but can be applied to other machines with modification.
 
 ## Purpose:
@@ -126,7 +126,7 @@ qiime demux summarize \
   --i-data path/to/where/qiime2/artifact/was/saved/file-name.qza \
   --o-visualization path/to/where/qiime2/visual/file/will/be/saved/file-name.qzv
 ```
-Now that the Qiime artifact (.qza) has been converted into a Qiime visualization file (.qzv) we can actually visualize what the Qiime artifact contained. To do this, open your browser and navigate to the Qiime2 Viewer found [HERE](https://view.qiime2.org/?src=e96f979f-4cc6-46fc-800f-abe58740e4ea). You can now upload the .qzv file and observe if the Forward and Reverse read counts are the same (this is our first gut check)! [THIS FORUM](https://forum.qiime2.org/t/demultiplexed-sequence-length-summary-identical-forward-and-reverse-for-emp-paired-end-reads/20692) has more information on why this should be the outcome for paired-end sequences.<br>
+Now that the Qiime artifact (.qza) has been converted into a Qiime visualization file (.qzv) we can actually visualize what the Qiime artifact contained. To do this, open your browser and navigate to the Qiime2 Viewer found [HERE](https://view.qiime2.org/?src=e96f979f-4cc6-46fc-800f-abe58740e4ea). You can now upload the .qzv file and observe if the Forward and Reverse read counts are the same (this is our first gut check)! [THIS FORUM](https://forum.qiime2.org/t/demultiplexed-sequence-length-summary-identical-forward-and-reverse-for-emp-paired-end-reads/20692) has more information on why this should be the outcome for paired-end sequences.<br><br>
 <ins>Using the Qiime2 Viewer, perform the following</ins><br>
 1. Record the total reads present for all your sequences.<br>
 2. Observe the quality of forward and reverse reads.<br>
@@ -189,23 +189,23 @@ See paired-end section for next steps using the Qiime2 visualization file (.qzv)
 <br><br>If running multiple tests on the same set of sequences, single end and paired-end outputs should have the same output parameters for the forward sequences.
 <br>
 ## STEP 3: Trim Primers From Sequences
-To trim primers from all sequences, Qiime2 uses uses cutadapt (handbook found [HERE](https://docs.qiime2.org/2024.10/plugins/available/cutadapt/index.html)).
-<br>For background on trimming Golay barcodes see [THIS](https://forum.qiime2.org/t/cutadapt-adapter-vs-front/15450) forum page.
+To trim primers from all sequences, Qiime2 uses the cutadapt plugin (handbook found [HERE](https://docs.qiime2.org/2024.10/plugins/available/cutadapt/index.html)).
+<br>If you want to trim Golay adapters and barcodes see [THIS](https://forum.qiime2.org/t/cutadapt-adapter-vs-front/15450) forum page for more information.
 
 **Primers commonly used in our studies:**
-<br><ins>Bacterial small ribosomal subunit (16S)</ins> V4 amplicon using 515F/806R primers (*CITE*).<br>
+<br><ins>Bacterial small ribosomal subunit (16S)</ins> V4 amplicon using 515F/806R primers (*Caporaso et al., 2011*).<br>
 See Jason Baer's paper [HERE](https://academic.oup.com/ismej/article/19/1/wraf228/8284954#supplementary-data) to see recent work we've done using this primer set.
-  <br>Amplicon ~ 250-300 bp
+  <br>Amplicon ~ 300-350 bp [EMP Protocol](https://earthmicrobiome.ucsd.edu/protocols-and-standards/16s/#:~:text=Amplification%20protocol&text=Run%20amplicons%20from%20each%20sample,is%20~300%E2%80%93350%20bp.)
   <br>515F (Forward primer): 5′-GTGYCAGCMGCCGCGGTAA-3′
   <br>806R (Reverse primer): 5′-GGACTACNVGGGTWTCTAAT-3′
-<br><br><ins>Arbuscular Mycorrhizal Fungi (AMF)</ins> small ribosomal subunit (18s) V4 amplicon using WANDA/AML2 primers(*Lee et al., 2008*).<br>
+<br><br><ins>Arbuscular Mycorrhizal Fungi (AMF)</ins> small ribosomal subunit (18s) V4 amplicon using WANDA/AML2 primers (*Lekberg et al., 2018*).<br>
 See Kacie Kajihara's paper [HERE](https://nph.onlinelibrary.wiley.com/doi/10.1111/nph.18058) on AMF communities in Hawaiʻi!
-  <br>Amplicon ~ 500 bp
+  <br>Amplicon ~ 490 bp
   <br>WANDA (Forward Primer): 5′-GAAACTGCGAATGGCTC-3′
   <br>AML2 (Reverse Primer): 5′-GAACCCAAACACTTTGGTTTCC-3′
-<br><br><ins>Fungi small ribosomal subunit (18s)</ins> V3-V4 amplicon using 18S-82F/Euk-516r primers (*Rachik et al. 2018*).<br>
+<br><br><ins>Fungi small ribosomal subunit (18s)</ins> V3-V4 amplicon using 18S-82F/Euk-516r primers (*Rachik et al., 2018*).<br>
 See Jason Baer's paper [HERE](https://academic.oup.com/ismej/article/19/1/wraf228/8284954#supplementary-data) to see recent work we've done using this primer set.
-  <br>Amplicon ~ 484 bp
+  <br>Amplicon ~ 484 bp (*Vaulot et al., 2022. Table. S2*)
   <br>18S-82F (Forward Primer): 5′-GAAACTGCGAATGGCTC-3′
   <br>Euk-516R (Reverse Primer): 5′-ACCAGACTTGCCCTCC-3′
 <br><br><ins>Orchid Mycorrhizal Fungi (OMF)</ins> Internal Transcribed Spacer 2 (ITS2) amplicon using fITS7 paired with either Tul1F or Tul2F</ins>
@@ -947,17 +947,19 @@ scp user@koa.its.hawaii.edu:/home/user/path/to/results/directory/file.ext \ ~/pa
 
 4. Bolyen, E., Rideout, J. R., Dillon, M. R., Bokulich, N. A., Abnet, C. C., Al-Ghalith, G. A., Alexander, H., Alm, E. J., Arumugam, M., Asnicar, F., Bai, Y., Bisanz, J. E., Bittinger, K., Brejnrod, A., Brislawn, C. J., Brown, C. T., Callahan, B. J., Caraballo-Rodríguez, A. M., Chase, J., … Caporaso, J. G. (2019). Reproducible, interactive, scalable and extensible microbiome data science using QIIME 2. Nature Biotechnology, 37(8), Article 8. https://doi.org/10.1038/s41587-019-0209-9
 
-5. Chuvochina, M., Gerken, J., Frentrup, M., Sandikci, Y., Goldmann, R., Freese, H. M., Göker, M., Sikorski, J., Yarza, P., Quast, C., Peplies, J., Glöckner, F. O., & Reimer, L. C. (2025). SILVA in 2026: A global core biodata resource for rRNA within the DSMZ digital diversity. Nucleic Acids Research, gkaf1247. https://doi.org/10.1093/nar/gkaf1247
+5. Caporaso, J. G., Lauber, C. L., Walters, W. A., Berg-Lyons, D., Lozupone, C. A., Turnbaugh, P. J., Fierer, N., & Knight, R. (2011). Global patterns of 16S rRNA diversity at a depth of millions of sequences per sample. Proceedings of the National Academy of Sciences, 108(supplement_1), 4516–4522. https://doi.org/10.1073/pnas.1000080107
 
-6. Cox, E., Tsuchiya, M. T. N., Ciufo, S., Torcivia, J., Falk, R., Anderson, W. R., Holmes, J. B., Hem, V., Breen, L., Davis, E., Ketter, A., Zhang, P., Soussov, V., Schoch, C. L., & O’Leary, N. A. (2025). NCBI Taxonomy: Enhanced access via NCBI Datasets. Nucleic Acids Research, 53(D1), D1711–D1715. https://doi.org/10.1093/nar/gkae967
+6. Chuvochina, M., Gerken, J., Frentrup, M., Sandikci, Y., Goldmann, R., Freese, H. M., Göker, M., Sikorski, J., Yarza, P., Quast, C., Peplies, J., Glöckner, F. O., & Reimer, L. C. (2025). SILVA in 2026: A global core biodata resource for rRNA within the DSMZ digital diversity. Nucleic Acids Research, gkaf1247. https://doi.org/10.1093/nar/gkaf1247
 
-7. Kajihara, K. T., Egan, C. P., Swift, S. O. I., Wall, C. B., Muir, C. D., & Hynson, N. A. (2022). Core arbuscular mycorrhizal fungi are predicted by their high abundance–occupancy relationship while host‐specific taxa are rare and geographically structured. New Phytologist, 234(4), 1464–1476. https://doi.org/10.1111/nph.18058
+7. Cox, E., Tsuchiya, M. T. N., Ciufo, S., Torcivia, J., Falk, R., Anderson, W. R., Holmes, J. B., Hem, V., Breen, L., Davis, E., Ketter, A., Zhang, P., Soussov, V., Schoch, C. L., & O’Leary, N. A. (2025). NCBI Taxonomy: Enhanced access via NCBI Datasets. Nucleic Acids Research, 53(D1), D1711–D1715. https://doi.org/10.1093/nar/gkae967
 
-8. Lee, J., Lee, S., & Young, J. P. W. (2008). Improved PCR primers for the detection and identification of arbuscular mycorrhizal fungi: PCR primers for arbuscular mycorrhizal fungi. FEMS Microbiology Ecology, 65(2), 339–349. https://doi.org/10.1111/j.1574-6941.2008.00531.x
+8. Kajihara, K. T., Egan, C. P., Swift, S. O. I., Wall, C. B., Muir, C. D., & Hynson, N. A. (2022). Core arbuscular mycorrhizal fungi are predicted by their high abundance–occupancy relationship while host‐specific taxa are rare and geographically structured. New Phytologist, 234(4), 1464–1476. https://doi.org/10.1111/nph.18058
 
-9. Oja, J., Kohout, P., Tedersoo, L., Kull, T., & Kõljalg, U. (2015). Temporal patterns of orchid mycorrhizal fungi in meadows and forests as revealed by 454 pyrosequencing. New Phytologist, 205(4), 1608–1618. https://doi.org/10.1111/nph.13223
+9. Lekberg, Y., Vasar, M., Bullington, L. S., Sepp, S., Antunes, P. M., Bunn, R., Larkin, B. G., & Öpik, M. (2018). More bang for the buck? Can arbuscular mycorrhizal fungal communities be characterized adequately alongside other fungi using general fungal primers? New Phytologist, 220(4), 971–976. https://doi.org/10.1111/nph.15035
 
-10. Öpik, M., Vanatoa, A., Vanatoa, E., Moora, M., Davison, J., Kalwij, J. M., Reier, Ü., & Zobel, M. (2010). The online database Maarj AM reveals global and ecosystemic distribution patterns in arbuscular mycorrhizal fungi (Glomeromycota). New Phytologist, 188(1), 223–241. https://doi.org/10.1111/j.1469-8137.2010.03334.x
+10. Oja, J., Kohout, P., Tedersoo, L., Kull, T., & Kõljalg, U. (2015). Temporal patterns of orchid mycorrhizal fungi in meadows and forests as revealed by 454 pyrosequencing. New Phytologist, 205(4), 1608–1618. https://doi.org/10.1111/nph.13223
+
+11. Öpik, M., Vanatoa, A., Vanatoa, E., Moora, M., Davison, J., Kalwij, J. M., Reier, Ü., & Zobel, M. (2010). The online database Maarj AM reveals global and ecosystemic distribution patterns in arbuscular mycorrhizal fungi (Glomeromycota). New Phytologist, 188(1), 223–241. https://doi.org/10.1111/j.1469-8137.2010.03334.x
     
 12. Rachik, S., Christaki, U., Li, L. L., Genitsaris, S., Breton, E., & Monchy, S. (2018). Diversity and potential activity patterns of planktonic eukaryotic microbes in a mesoeutrophic coastal area (eastern English Channel). PLOS ONE, 13(5), e0196987. https://doi.org/10.1371/journal.pone.0196987
 
@@ -967,10 +969,13 @@ scp user@koa.its.hawaii.edu:/home/user/path/to/results/directory/file.ext \ ~/pa
 
 15. White TJ, Bruns T, Lee S, Taylor J. 1990. Ampliﬁcation and direct sequencingof fungal ribosomal RNA genes for phylogenetics. In: Innis MA, Gelfand DH,Sninsky JJ, White TJ, eds. PCR protocols: a guide to methods and applications.New York, NY, USA: Academic Press, 315–322
 
+16. Vaulot, D., Geisen, S., Mahé, F., & Bass, D. (2022). pr2‐primers: An 18S rRNA primer database for protists. Molecular Ecology Resources, 22(1), 168–179. https://doi.org/10.1111/1755-0998.13465
 
 
 
-16. greengenes2
-17. gtdb
-18. others?
+
+
+17. greengenes2
+18. gtdb
+19. others?
 
