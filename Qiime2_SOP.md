@@ -218,8 +218,8 @@ See Jason Baer's paper [HERE](https://academic.oup.com/ismej/article/19/1/wraf22
   <br>Amplicon ~
   <br>Tul2F (Forward Primer): 5′-TGGATCCCTTGGCACGTC-3′
   <br>ITS4-Tul2 (Reverse Primer): 5′-TTCTTTTCCTCCGCTGAWTA-3′
-<br><br><ins>Fungi Internal Transcribed Spacer 1 (ITS1)</ins> using ITS1f/ITS2 primers (*CITE*)
-  <br>Amplicon ~ 230 bp [EMP Protocol](https://earthmicrobiome.ucsd.edu/protocols-and-standards/its/)
+<br><br><ins>Fungi Internal Transcribed Spacer 1 (ITS1)</ins> using ITS1f/ITS2 primers (*Hoggard et al., 2018*)
+  <br>Amplicon ~ 250 bp [EMP Protocol](https://earthmicrobiome.ucsd.edu/protocols-and-standards/its/)
   <br>ITS1f (Forward Primer): 5′-CTTGGTCATTTAGAGGAAGTAA-3′
   <br>ITS2 (Reverse Primer): 5′-GCTGCGTTCTTCATCGATGC-3′
 <br>
@@ -957,29 +957,31 @@ scp user@koa.its.hawaii.edu:/home/user/path/to/results/directory/file.ext \ ~/pa
 
 7. Cox, E., Tsuchiya, M. T. N., Ciufo, S., Torcivia, J., Falk, R., Anderson, W. R., Holmes, J. B., Hem, V., Breen, L., Davis, E., Ketter, A., Zhang, P., Soussov, V., Schoch, C. L., & O’Leary, N. A. (2025). NCBI Taxonomy: Enhanced access via NCBI Datasets. Nucleic Acids Research, 53(D1), D1711–D1715. https://doi.org/10.1093/nar/gkae967
 
-8. Kajihara, K. T., Egan, C. P., Swift, S. O. I., Wall, C. B., Muir, C. D., & Hynson, N. A. (2022). Core arbuscular mycorrhizal fungi are predicted by their high abundance–occupancy relationship while host‐specific taxa are rare and geographically structured. New Phytologist, 234(4), 1464–1476. https://doi.org/10.1111/nph.18058
+8. Hoggard, M., Vesty, A., Wong, G., Montgomery, J. M., Fourie, C., Douglas, R. G., et al. (2018). Characterizing the human mycobiota: a comparison of small subunit rRNA, ITS1, ITS2, and large subunit rRNA genomic targets. Frontiers in Microbiology, 9. http://doi.org/10.3389/fmicb.2018.02208
 
-9. Lekberg, Y., Vasar, M., Bullington, L. S., Sepp, S., Antunes, P. M., Bunn, R., Larkin, B. G., & Öpik, M. (2018). More bang for the buck? Can arbuscular mycorrhizal fungal communities be characterized adequately alongside other fungi using general fungal primers? New Phytologist, 220(4), 971–976. https://doi.org/10.1111/nph.15035
+9. Kajihara, K. T., Egan, C. P., Swift, S. O. I., Wall, C. B., Muir, C. D., & Hynson, N. A. (2022). Core arbuscular mycorrhizal fungi are predicted by their high abundance–occupancy relationship while host‐specific taxa are rare and geographically structured. New Phytologist, 234(4), 1464–1476. https://doi.org/10.1111/nph.18058
 
-10. Oja, J., Kohout, P., Tedersoo, L., Kull, T., & Kõljalg, U. (2015). Temporal patterns of orchid mycorrhizal fungi in meadows and forests as revealed by 454 pyrosequencing. New Phytologist, 205(4), 1608–1618. https://doi.org/10.1111/nph.13223
+10. Lekberg, Y., Vasar, M., Bullington, L. S., Sepp, S., Antunes, P. M., Bunn, R., Larkin, B. G., & Öpik, M. (2018). More bang for the buck? Can arbuscular mycorrhizal fungal communities be characterized adequately alongside other fungi using general fungal primers? New Phytologist, 220(4), 971–976. https://doi.org/10.1111/nph.15035
 
-11. Öpik, M., Vanatoa, A., Vanatoa, E., Moora, M., Davison, J., Kalwij, J. M., Reier, Ü., & Zobel, M. (2010). The online database Maarj AM reveals global and ecosystemic distribution patterns in arbuscular mycorrhizal fungi (Glomeromycota). New Phytologist, 188(1), 223–241. https://doi.org/10.1111/j.1469-8137.2010.03334.x
+11. Oja, J., Kohout, P., Tedersoo, L., Kull, T., & Kõljalg, U. (2015). Temporal patterns of orchid mycorrhizal fungi in meadows and forests as revealed by 454 pyrosequencing. New Phytologist, 205(4), 1608–1618. https://doi.org/10.1111/nph.13223
+
+12. Öpik, M., Vanatoa, A., Vanatoa, E., Moora, M., Davison, J., Kalwij, J. M., Reier, Ü., & Zobel, M. (2010). The online database Maarj AM reveals global and ecosystemic distribution patterns in arbuscular mycorrhizal fungi (Glomeromycota). New Phytologist, 188(1), 223–241. https://doi.org/10.1111/j.1469-8137.2010.03334.x
     
-12. Rachik, S., Christaki, U., Li, L. L., Genitsaris, S., Breton, E., & Monchy, S. (2018). Diversity and potential activity patterns of planktonic eukaryotic microbes in a mesoeutrophic coastal area (eastern English Channel). PLOS ONE, 13(5), e0196987. https://doi.org/10.1371/journal.pone.0196987
+13. Rachik, S., Christaki, U., Li, L. L., Genitsaris, S., Breton, E., & Monchy, S. (2018). Diversity and potential activity patterns of planktonic eukaryotic microbes in a mesoeutrophic coastal area (eastern English Channel). PLOS ONE, 13(5), e0196987. https://doi.org/10.1371/journal.pone.0196987
 
-13. Tedersoo, L., Hosseyni Moghaddam, M. S., Mikryukov, V., Hakimzadeh, A., Bahram, M., Nilsson, R. H., Yatsiuk, I., Geisen, S., Schwelm, A., Piwosz, K., Prous, M., Sildever, S., Chmolowska, D., Rueckert, S., Skaloud, P., Laas, P., Tines, M., Jung, J.-H., Choi, J. H., … Anslan, S. (2024). EUKARYOME: The rRNA gene reference database for identification of all eukaryotes. Database, 2024, baae043. https://doi.org/10.1093/database/baae043
+14. Tedersoo, L., Hosseyni Moghaddam, M. S., Mikryukov, V., Hakimzadeh, A., Bahram, M., Nilsson, R. H., Yatsiuk, I., Geisen, S., Schwelm, A., Piwosz, K., Prous, M., Sildever, S., Chmolowska, D., Rueckert, S., Skaloud, P., Laas, P., Tines, M., Jung, J.-H., Choi, J. H., … Anslan, S. (2024). EUKARYOME: The rRNA gene reference database for identification of all eukaryotes. Database, 2024, baae043. https://doi.org/10.1093/database/baae043
 
-14. Wang, D., Gebauer, G., Jacquemyn, H., Zahn, F. E., Gomes, S. I. F., Lorenz, J., Van Der Hagen, H., Schilthuizen, M., & Merckx, V. S. F. T. (2023). Variation in mycorrhizal communities and the level of mycoheterotrophy in grassland and Forest populations of Neottia ovata (Orchidaceae). Functional Ecology, 37(7), 1948–1961. https://doi.org/10.1111/1365-2435.14354
+15. Wang, D., Gebauer, G., Jacquemyn, H., Zahn, F. E., Gomes, S. I. F., Lorenz, J., Van Der Hagen, H., Schilthuizen, M., & Merckx, V. S. F. T. (2023). Variation in mycorrhizal communities and the level of mycoheterotrophy in grassland and Forest populations of Neottia ovata (Orchidaceae). Functional Ecology, 37(7), 1948–1961. https://doi.org/10.1111/1365-2435.14354
 
-15. White TJ, Bruns T, Lee S, Taylor J. 1990. Ampliﬁcation and direct sequencingof fungal ribosomal RNA genes for phylogenetics. In: Innis MA, Gelfand DH,Sninsky JJ, White TJ, eds. PCR protocols: a guide to methods and applications.New York, NY, USA: Academic Press, 315–322
+16. White TJ, Bruns T, Lee S, Taylor J. 1990. Ampliﬁcation and direct sequencingof fungal ribosomal RNA genes for phylogenetics. In: Innis MA, Gelfand DH,Sninsky JJ, White TJ, eds. PCR protocols: a guide to methods and applications.New York, NY, USA: Academic Press, 315–322
 
-16. Vaulot, D., Geisen, S., Mahé, F., & Bass, D. (2022). pr2‐primers: An 18S rRNA primer database for protists. Molecular Ecology Resources, 22(1), 168–179. https://doi.org/10.1111/1755-0998.13465
-
-
+17. Vaulot, D., Geisen, S., Mahé, F., & Bass, D. (2022). pr2‐primers: An 18S rRNA primer database for protists. Molecular Ecology Resources, 22(1), 168–179. https://doi.org/10.1111/1755-0998.13465
 
 
 
-17. greengenes2
-18. gtdb
-19. others?
+
+
+18. greengenes2
+19. gtdb
+20. others?
 
