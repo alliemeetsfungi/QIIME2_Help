@@ -1,4 +1,4 @@
-NOTE: The steps for the code below are directly correlated to the steps outlined in the Qiime2_SOP, thus some jumps will be observed between the numbered steps.<br><br>
+**NOTE:** The steps for the code below are directly correlated to the steps outlined in the [Qiime2_SOP.md](https://github.com/alliemeetsfungi/qiime2_amplicon_cleanup/blob/main/Qiime2_SOP.md), thus some jumps will be observed between step numbers.<br><br>
 ## STEP 1: Prepare Files & Environment
 Activate Qiime2 in terminal command line
 ```
