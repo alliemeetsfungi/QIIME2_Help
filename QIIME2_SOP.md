@@ -388,7 +388,7 @@ qiime metadata tabulate \
   --o-visualization path/to/results/directory/denoising-stats.qzv
 ```
 As described above, make sure that the number of samples, features, reads, sequence length statistics, and denoising statistics are recorded when provided, and download any file of interest (described above).
-<br><br><ins>Once all tests have been run, compare the number of features and samples with sufficient read retention among all tests.</ins> I record all of this information in an excel sheet for all of my output files for easier comparisons and tracking at each step (see the 18s_qiime2_output_summary.csv file for reference). The test with the highest amount of features and samples with sufficient read retention should be used from this point forward.
+<br><br><ins>Once all tests have been run, compare the number of features and samples with sufficient read retention among all tests.</ins> I record all of this information in an excel sheet for all of my output files for easier comparisons and tracking at each step (see the [18s_QIIME2_output_summary.csv](https://github.com/alliemeetsfungi/QIIME2_Help/blob/main/Example_Data/18s_QIIME2_output_summary.csv) file for reference). The test with the highest amount of features and samples with sufficient read retention should be used from this point forward.
 <br>
 ## STEP 5 (OPTIONAL!): Cluster ASVs into OTUs
 Using the feature table and representative sequences from the DADA2 cleanup with the best feature count and sample read retention outcome, ASVs can be clustered into OTUs if desired with the code below. Use these outputs for the subsequent steps in this SOP if you plan on assessing OTUs instead of ASVs for downstream analyses.
@@ -673,7 +673,7 @@ qiime taxa filter-seqs \
   --p-include unassigned \
   --o-filtered-sequences path/to/database/search/results/NEW-database/directory-80/unassigned-rep-seqs.qza
 ```
-If you have more databases you are interested in running your representative sequences through for furhter taxonomic assignment, repeat these steps for each additional database. See the [Distance-Decay-18S-QIIME2-PIPELINE.md](https://github.com/alliemeetsfungi/qiime2_amplicon_cleanup/blob/main/Distance-Decay-18S-QIIME2-Pipeline.md) for reference on using multiple databases for taxonomic assignment with a real dataset.
+If you have more databases you are interested in running your representative sequences through for furhter taxonomic assignment, repeat these steps for each additional database. See the [Distance-Decay-18S-QIIME2-PIPELINE.md](https://github.com/alliemeetsfungi/QIIME2_Help/blob/main/Example_Pipes/Distance-Decay-18S-QIIME2-Pipeline.md) for reference on using multiple databases for taxonomic assignment with a real dataset.
 <br>
 ## STEP 9 (OPTIONAL!): Filtering Feature Tables
 Once you are satisfied with your taxonomic assignments using your representative sequences, you can filter your actual feature table to contain only taxonomically assigned features, or conversely only the remaining unassigned features.<br><br>
