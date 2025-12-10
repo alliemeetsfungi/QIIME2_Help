@@ -668,7 +668,7 @@ qiime taxa filter-seqs \
 ```
 If you have more databases you are interested in running your representative sequences through for furhter taxonomic assignment, repeat these steps for each additional database. See (INSERT MY OWN PIPELINES HERE) for reference on using multiple databases for taxonomic assignment with a real dataset.
 <br>
-## STEP 9: Filtering Feature Tables (OPTIONAL)
+## STEP 9 (OPTIONAL!): Filtering Feature Tables
 Once you are satisfied with your taxonomic assignments using your representative sequences, you can filter your actual feature table to contain only taxonomically assigned features, or conversely only the remaining unassigned features.<br><br>
 **Database ONE**<br>
 Begin with your original DADA2 feature table as your input table (feature-table.qza) and your classification file made from your first database at 95% identity.<br><br>
