@@ -1,4 +1,4 @@
-**NOTE:** The steps for the code below are directly correlated to the steps outlined in the [QIIME 2_SOP.md](https://github.com/alliemeetsfungi/qiime2_amplicon_cleanup/blob/main/QIIME 2_SOP.md), thus some jumps will be observed between step numbers.<br><br>
+**NOTE:** The steps for the code below are directly correlated to the steps outlined in the [QIIME 2_SOP.md](https://github.com/alliemeetsfungi/qiime2_amplicon_cleanup/blob/main/QIIME2_SOP.md), thus some jumps will be observed between step numbers.<br><br>
 ## STEP 1: Prepare Files & Environment
 <ins>Preparing Files For QIIME 2</ins><br>
 On the local command line run the following code to upload all .fastq.gz files onto KOA:
