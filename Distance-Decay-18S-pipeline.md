@@ -1022,6 +1022,7 @@ The final files to be exported are as follows:
 2. Representative Sequences: fwd-rep-seqs.qza
 3. Taxonomy Table: ssu-taxonomy.qza
 <br>
+
 <ins>Export Feature Table</ins> (only if step 5 was skipped):
 ```
 qiime tools export \
