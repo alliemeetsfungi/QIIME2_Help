@@ -1,16 +1,16 @@
-# Qiime2 Amplicon Sequencing Cleanup
-All of the code used here is compatible with the package <ins>Qiime2 amplicon version 2024.10.</ins> (*Bolyen et al., 2019*), documents and other tutorials for this version can be found [HERE](https://docs.qiime2.org/2024.10/).<br><br>
+# QIIME 2 Amplicon Sequencing Cleanup
+All of the code used here is compatible with the package <ins>QIIME 2 amplicon version 2024.10.</ins> (*Bolyen et al., 2019*), documents and other tutorials for this version can be found [HERE](https://docs.qiime2.org/2024.10/).<br><br>
 The instructions and code for installing on a local drive are for macOS (Apple Silicon), and linux for installing on an HPC, but can be applied to other machines with modification.
 
 ## Purpose:
-This SOP is designed to assist those with using the Qiime2 package for (i) performing an initial quality control (cleaning) using DADA2 of all sequences by removing low quality sequences (quality filtering) and chimeric sequences, correcting sequencing errors that are present (denoising), grouping duplicate sequences, and merging paired end sequences (if maintaining both the forward and reverse sequences for all samples), and (ii) assigning taxonomy to reamining sequences using various databases. This procedure focuses specifically on fungal 18S and bacterial 16S bacterial sequences, but can be modified for other amplicons as needed.
+This SOP is designed to assist those with using the QIIME 2 package for (i) performing an initial quality control (cleaning) using DADA2 of all sequences by removing low quality sequences (quality filtering) and chimeric sequences, correcting sequencing errors that are present (denoising), grouping duplicate sequences, and merging paired end sequences (if maintaining both the forward and reverse sequences for all samples), and (ii) assigning taxonomy to reamining sequences using various databases. This procedure focuses specifically on fungal 18S and bacterial 16S bacterial sequences, but can be modified for other amplicons as needed.
 
 ### Inisghts Into Bioinformatics Terminology:
 For the purposes of this SOP, a local drive referes to your personal computer and the High Perfomance Computer (HPC) that is used is the University of Hawaiʻi at Mānoa's cluster named KOA which can be accessed through the online interface [HERE](https://koa.its.hawaii.edu/) or through the command line (described below). In order to get access to the cluster (KOA) you need to be associated with the University of Hawaiʻi at Mānoa, register for an account [HERE](https://datascience.hawaii.edu/eligibility-sign-up/), and take the required onboarding. Once those steps are completed you can access the cluser with your UH username (described below).
 <br><br>
 You will often see the word "path" which tells you the location of a folder (called a directory) or a file. For example, if you see something like this "path/to/folder/file.ext" this would indicate that the file "file.ext" is inside of the folder "folder" which is inisde of the folder "to" which is inside of the folder "path". The extension of the file (.ext) indicates what kind of file it is, you've seen this before for common files such as PDF (.pdf) and Microsoft Office (.docx) files that contain different extensions.<br>
 ## STEP 1: Prepare Files & Environment
-<ins>Preparing Files For Qiime2</ins><br>
+<ins>Preparing Files For QIIME 2</ins><br>
 To begin, make sure sequences are downloaded in an accessible location as fastq.gz files on the local drive.<br><br>
 If you're sequences are in the .fastq format, you can compress each .fastq file in a directory into .fastq.gz files:
 ```
@@ -22,11 +22,11 @@ scp -r "path/to/folder" \
 user@koa.its.hawaii.edu:/home/user/path/to/directory/for/files
 ```
 NOTE: This will only work if you alrady have a KOA (or other HPC interface) account, see below for further details if you do not.<br>
-### Installing Qiime2 on Local Drive (Apple Silicon)
-Further information for downloading Qiime2 on other interfaces can be found on the Qiime2 website found [HERE](https://docs.qiime2.org/2024.10/install/native/). 
+### Installing QIIME 2 on Local Drive (Apple Silicon)
+Further information for downloading QIIME 2 on other interfaces can be found on the QIIME 2 website found [HERE](https://docs.qiime2.org/2024.10/install/native/). 
 <br><br>
 Open the terminal and run the code line below.<br>
-NOTE: The line after "-n" is what the environment will be named, in the code below it is "qiime2-amplicon-2024.10" but this can be changed to anything! You will use this name to activate Qiime2 on your local drive, **take note of whatever you name it!**
+NOTE: The line after "-n" is what the environment will be named, in the code below it is "qiime2-amplicon-2024.10" but this can be changed to anything! You will use this name to activate QIIME 2 on your local drive, **take note of whatever you name it!**
 ```
 CONDA_SUBDIR=osx-64 conda env create -n qiime2-amplicon-2024.10 --file https://data.qiime2.org/distro/amplicon/qiime2-amplicon-2024.10-py310-osx-conda.yml
 conda activate qiime2-amplicon-2024.10
@@ -55,16 +55,16 @@ conda config --env --set subdir osx-64
 ```
 conda config --set channel_priority flexible
 ```
-Once the above output is shown in the terminal, Qiime2 can be activated in terminal command line by running:
+Once the above output is shown in the terminal, QIIME 2 can be activated in terminal command line by running:
 ```
 conda activate /path/to/qiime2/on/local/drive/qiime2-amplicon-2024.10
 ```
-Once you have activated Qiime2, set your working directory along the same path to the directory containing the gzipped sequence files (.fastq.gz). For example, if your sequences are found in /home/project/sequences, set your working directory to /home/project.
+Once you have activated QIIME 2, set your working directory along the same path to the directory containing the gzipped sequence files (.fastq.gz). For example, if your sequences are found in /home/project/sequences, set your working directory to /home/project.
 ```
 cd /path/to/working/directory
 ```
-### Installing Qiime2 on the HPC
-NOTE: KOA has a much older version of Qiime2 already installed, however the code written in this SOP may not be compatible since it is written for a newer version of Qiime2. Installing the version associated with this SOP gaurantees code compatability.<br><br>
+### Installing QIIME 2 on the HPC
+NOTE: KOA has a much older version of QIIME 2 already installed, however the code written in this SOP may not be compatible since it is written for a newer version of QIIME 2. Installing the version associated with this SOP gaurantees code compatability.<br><br>
 To access KOA on the command line run the code below, then enter your UH password & designate two factor authentication preference. NOTE: password is invisible and does not show key strokes!
 ```
 ssh user@koa.its.hawaii.edu
@@ -73,17 +73,17 @@ In order to download and activate packages you must first start an interactive j
 ```
 srun -p shared --mem=60G -c 4 -t 06:00:00 --pty /bin/bash
 ```
-<br><ins>Stay on your home directory for Qiime2 installation</ins>
+<br><ins>Stay on your home directory for QIIME 2 installation</ins>
 <br>Load anaconda module (this is already installed on KOA for all users)
 ```
 module load lang/Anaconda3/2024.02-1
 ```
-Now you can install Qiime2.<br>
-NOTE: the line after -n is what the environment will be named, in the code below it is "qiime2" but could be anything. You will use this name to activate Qiime2 on the HPC, so **take note of whatever you name it!**
+Now you can install QIIME 2.<br>
+NOTE: the line after -n is what the environment will be named, in the code below it is "qiime2" but could be anything. You will use this name to activate QIIME 2 on the HPC, so **take note of whatever you name it!**
 ``` 
 conda env create -n qiime2 --file https://data.qiime2.org/distro/amplicon/qiime2-amplicon-2024.10-py310-linux-conda.yml
 ```
-Check the conda environment to make sure it installed correctly by looking for what you named your Qiime2 package during installation.
+Check the conda environment to make sure it installed correctly by looking for what you named your QIIME 2 package during installation.
 ```
 conda info - e
 ```
@@ -91,9 +91,9 @@ Here is an example of what is printed on my command line when I run the code abo
 *conda environments:*<br>
 *qiime2    /home/alliej/.conda/envs/qiime2*<br>
 *base      /opt/apps/software/lang/Anaconda3/2024.02-1*<br><br>
-<ins>Activating Qiime2 on HPC</ins>
+<ins>Activating QIIME 2 on HPC</ins>
 <br>NOTE: this is different than how conda is activated on a local drive or personal computer!
-<br>For each new session, make sure you perform the following prior to activating Qiime2:
+<br>For each new session, make sure you perform the following prior to activating QIIME 2:
   1. Start an interactive job
   2. Load anaconda module
 ```
@@ -105,11 +105,11 @@ For example, if your sequences are found in /home/project/sequences, set your wo
 cd /path/to/working/directory
 ```
 Now all of the code you run will be set to start at this directory and all paths can be defined based on the directories found within this location.<bR>
-## STEP 2: Importing Sequences Into Qiime2
-Qiime2 uses "Qiime Artifact" files, with a .qza extension, to store large amounts of information in a compressed format. In order to use Qiime2, the information recorded in all of your sequence files will need to be imported into a Qiime artifact. Additionally, all output files made within Qiime2 will be initially made into Qiime artifacts and will be converted into other formats for visualization and export (explained in detail later on).<br>
-**WARNING:** Importing sequencing files into a Qiime artifact can take anywhere from **2-10 hours** depending on how much processing power your computer has (if running Qiime2 on your local drive) and how large your data set is.<br><br>
+## STEP 2: Importing Sequences Into QIIME 2
+QIIME 2 uses "Qiime Artifact" files, with a .qza extension, to store large amounts of information in a compressed format. In order to use QIIME 2, the information recorded in all of your sequence files will need to be imported into a Qiime artifact. Additionally, all output files made within QIIME 2 will be initially made into Qiime artifacts and will be converted into other formats for visualization and export (explained in detail later on).<br>
+**WARNING:** Importing sequencing files into a Qiime artifact can take anywhere from **2-10 hours** depending on how much processing power your computer has (if running QIIME 2 on your local drive) and how large your data set is.<br><br>
 The two approaches outlined below are for importing either (i) paired-end sequences (where you have a foward and reverse read for each sample) or (ii) single-end sequenes (generally only the foward read sequences for each sample) both of which use the Casava 1.8 method. This method requires sequences to be demultiplexed and in a specific format that is standard for sequences recieved from the Advanced Studies in Genomics, Proteomics, and Bioinformatics (ASGPB) center at University of Hawaiʻi at Mānoa. If your libraries were run outside of the University of Hawaiʻi at Mānoa, you may have to use an alternative importing approach. Further details on the formatting specifics required for importing sequences into a Qiime artifact, as well as other methods available can be found [HERE](https://docs.qiime2.org/2024.10/tutorials/importing/).<br><br>
-Regardless of the approach you choose to take to import all of your .fastq.gz sequencing files into a single Qiime artifact there are <ins>two lines of code that should be modified</ins>. The first is the <ins>"--input-path"</ins> which should show the path to the folder where your sequencing files are stored. The second is the <ins>"--output-path"</ins> line which should contain the path where your want your Qiime2 artifcat to be stored, and what you want it to be named.
+Regardless of the approach you choose to take to import all of your .fastq.gz sequencing files into a single Qiime artifact there are <ins>two lines of code that should be modified</ins>. The first is the <ins>"--input-path"</ins> which should show the path to the folder where your sequencing files are stored. The second is the <ins>"--output-path"</ins> line which should contain the path where your want your QIIME 2 artifcat to be stored, and what you want it to be named.
 <br>
 ### Import paired-end sequences using Casava 1.8 paired-end demultiplexed fastq method
 Modify the --input-path and --output-path lines to indicate where your sequences are stored, and where you want your Qiime artifact to be stored and named (described above) respectively.
@@ -120,14 +120,14 @@ qiime tools import \
   --input-format CasavaOneEightSingleLanePerSampleDirFmt \
   --output-path path/to/where/qiime2/artifact/will/be/saved/file-name.qza
 ```
-Convert the Qiime2 artifcat (.qza) into a Qiime2 visualization file (.qzv):
+Convert the QIIME 2 artifcat (.qza) into a QIIME 2 visualization file (.qzv):
 ```
 qiime demux summarize \
   --i-data path/to/where/qiime2/artifact/was/saved/file-name.qza \
   --o-visualization path/to/where/qiime2/visual/file/will/be/saved/file-name.qzv
 ```
-Now that the Qiime artifact (.qza) has been converted into a Qiime visualization file (.qzv) we can actually visualize what the Qiime artifact contained. To do this, open your browser and navigate to the Qiime2 Viewer found [HERE](https://view.qiime2.org/?src=e96f979f-4cc6-46fc-800f-abe58740e4ea). You can now upload the .qzv file and observe if the Forward and Reverse read counts are the same (this is our first gut check)! [THIS FORUM](https://forum.qiime2.org/t/demultiplexed-sequence-length-summary-identical-forward-and-reverse-for-emp-paired-end-reads/20692) has more information on why this should be the outcome for paired-end sequences.<br><br>
-<ins>Using the Qiime2 Viewer, perform the following</ins><br>
+Now that the Qiime artifact (.qza) has been converted into a Qiime visualization file (.qzv) we can actually visualize what the Qiime artifact contained. To do this, open your browser and navigate to the QIIME 2 Viewer found [HERE](https://view.qiime2.org/?src=e96f979f-4cc6-46fc-800f-abe58740e4ea). You can now upload the .qzv file and observe if the Forward and Reverse read counts are the same (this is our first gut check)! [THIS FORUM](https://forum.qiime2.org/t/demultiplexed-sequence-length-summary-identical-forward-and-reverse-for-emp-paired-end-reads/20692) has more information on why this should be the outcome for paired-end sequences.<br><br>
+<ins>Using the QIIME 2 Viewer, perform the following</ins><br>
 1. Record the total reads present for all your sequences.<br>
 2. Observe the quality of forward and reverse reads.<br>
 *To Observe the read quality, go to the "Interactive Quality Plot" tab*<br>
@@ -179,17 +179,17 @@ qiime tools import \
   --input-format CasavaOneEightSingleLanePerSampleDirFmt \
   --output-path path/to/where/qiime2/artifact/will/be/saved/file-name.qza
 ```
-Convert Qiime2 artifcat into visualization file.
+Convert QIIME 2 artifcat into visualization file.
 ```
 qiime demux summarize \
   --i-data path/to/where/qiime2/artifact/was/saved/file-name.qza \
   --o-visualization path/to/where/qiime2/artifact/will/be/saved/file-name.qzv
 ```
-See paired-end section for next steps using the Qiime2 visualization file (.qzv)
+See paired-end section for next steps using the QIIME 2 visualization file (.qzv)
 <br><br>If running multiple tests on the same set of sequences, single end and paired-end outputs should have the same output parameters for the forward sequences.
 <br>
 ## STEP 3: Trim Primers From Sequences
-To trim primers from all sequences, Qiime2 uses the cutadapt plugin (handbook found [HERE](https://docs.qiime2.org/2024.10/plugins/available/cutadapt/index.html)).
+To trim primers from all sequences, QIIME 2 uses the cutadapt plugin (handbook found [HERE](https://docs.qiime2.org/2024.10/plugins/available/cutadapt/index.html)).
 <br>If you want to trim Golay adapters and barcodes see [THIS](https://forum.qiime2.org/t/cutadapt-adapter-vs-front/15450) forum page for more information.
 
 **Primers commonly used in our studies:**
@@ -238,9 +238,9 @@ qiime demux summarize \
   --i-data path/to/where/file/was/saved/file-name.qza \
   --o-visualization path/to/where/file/will/be/saved/file-name.qzv
 ```
---verbose tells Qiime2 to print out the logging output to the terminal while it runs the command. This can help trouble shoot any errors that may occur during the run, but is not necessary for trimming process. When running codes with a bash scripts on the HPC, these will be printed in the .out files produced from that job.<br>
+--verbose tells QIIME 2 to print out the logging output to the terminal while it runs the command. This can help trouble shoot any errors that may occur during the run, but is not necessary for trimming process. When running codes with a bash scripts on the HPC, these will be printed in the .out files produced from that job.<br>
 <br>
-Go to the Qiime2 Viewer on the browser and upload the .qzv file, <ins>record total reads and any other pertinent information</ins>. Compare these outputs to your imported outputs from STEP 2. There shouldn't be any differences if everything worked correctly!
+Go to the QIIME 2 Viewer on the browser and upload the .qzv file, <ins>record total reads and any other pertinent information</ins>. Compare these outputs to your imported outputs from STEP 2. There shouldn't be any differences if everything worked correctly!
 <br><br>Scroll to the very bottom of the "Overview" page and click "Download as TSV" to download per-sample-fastq-counts.tsv post primer trimming if desired.
 <br>
 ### Trim Primers From Forward Sequences
@@ -256,7 +256,7 @@ qiime demux summarize \
   --i-data path/to/where/file/was/saved/file-name.qza \
   --o-visualization path/to/where/file/will/be/saved/file-name.qzv
 ```
-See paired-end section for next steps using the Qiime2 visualization file (.qzv)
+See paired-end section for next steps using the QIIME 2 visualization file (.qzv)
 <br><br>If running multiple tests on the same set of sequences, single end and paired-end outputs should have identical parameters.
 <br>
 ## STEP 4: DADA2 - Trimming, Merging, Denoising, and Feature Calling of Sequences
@@ -285,14 +285,14 @@ qiime feature-table summarize \
   --i-table path/to/results/directory/feature-table.qza \
   --o-visualization path/to/results/directory/feature-table.qzv
 ```
-Upload to the Qiime2 Viewer and record the number of samples, features, and total frequency (reads) present for this test.
-<br><br>Convert representative sequences Qiime2 artifcat (feature-rep-seqs.qza) into a visualization file (feature-rep-seqs.qzv).
+Upload to the QIIME 2 Viewer and record the number of samples, features, and total frequency (reads) present for this test.
+<br><br>Convert representative sequences QIIME 2 artifcat (feature-rep-seqs.qza) into a visualization file (feature-rep-seqs.qzv).
 ```
 qiime feature-table tabulate-seqs \
   --i-data path/to/results/directory/feature-rep-seqs.qza \
   --o-visualization path/to/results/directory/feature-rep-seqs.qzv
 ```
-Now upload this .qzv file onto the Qiime2 Viewer and record sequence count (features), and sequence length statistics. Here, you can also download a .fasta file containing the sequence associated with each feature detected if desired, but this is also exported later on.
+Now upload this .qzv file onto the QIIME 2 Viewer and record sequence count (features), and sequence length statistics. Here, you can also download a .fasta file containing the sequence associated with each feature detected if desired, but this is also exported later on.
 <br><br>Convert denoising statistics Qiime artifact (denoising-stats.qza) into visualization file (denoising-stats.qzv)
 ```
 qiime metadata tabulate \
@@ -436,9 +436,9 @@ path/to/local/drive/directory
 The files should now be in your chosen directory and ready for import into R for culling.
 <br>
 ## STEP 7: Import Databases For Taxonomic Identification
-The following databases are the most commonly used for our studies. Some require files to be downloaded from the database webpage, while other databases can be pulled directly through Qiime2. This step only needs to be performed once even if the taxonomic identification has to be re-done or if you're wanting to perform taxonomic assignment on multiple tests (for example on both your ASV and OTU results).
+The following databases are the most commonly used for our studies. Some require files to be downloaded from the database webpage, while other databases can be pulled directly through QIIME 2. This step only needs to be performed once even if the taxonomic identification has to be re-done or if you're wanting to perform taxonomic assignment on multiple tests (for example on both your ASV and OTU results).
 <br><br>**SILVA**
-<br>This database is used for both 16S (prokaryotes) & 18S (eukaryotes) small ribosomal subunits. You can pull the database files needed for Qiime2 straight from the SILVA database using the code below. See [THIS](https://forum.qiime2.org/t/sequence-and-taxonomy-files-for-silva-v138-2/33475) forum for more details. The code provided in this SOP is based on SILVA version 138.2. <ins>NOTE: Reference sequences extracted from SILVA are in rRNA format and need to be "transcribed" before using for taxonomic identification.</ins>
+<br>This database is used for both 16S (prokaryotes) & 18S (eukaryotes) small ribosomal subunits. You can pull the database files needed for QIIME 2 straight from the SILVA database using the code below. See [THIS](https://forum.qiime2.org/t/sequence-and-taxonomy-files-for-silva-v138-2/33475) forum for more details. The code provided in this SOP is based on SILVA version 138.2. <ins>NOTE: Reference sequences extracted from SILVA are in rRNA format and need to be "transcribed" before using for taxonomic identification.</ins>
 <br><br>Pull data from silva repository
 ```
 qiime rescript get-silva-data \
@@ -456,8 +456,8 @@ qiime rescript reverse-transcribe \
 
 ### Fungi (and other micro-eukaryotes) Databases
 **Eukaryome**
-<br>Files can be downloaded [HERE](https://eukaryome.org/qiime2/) for Qiime2 compatability. This code provided in this SOP is based on QIIME2_EUK_SSU Version 2.0, however databases for LSU, ITS, and other microbial amplicons are available.
-<br><br>Once database files are downloaded transfer them into your working directory, then import the reference sequences and taxonomy files into Qiime2 using the following code:
+<br>Files can be downloaded [HERE](https://eukaryome.org/qiime2/) for QIIME 2 compatability. This code provided in this SOP is based on QIIME2_EUK_SSU Version 2.0, however databases for LSU, ITS, and other microbial amplicons are available.
+<br><br>Once database files are downloaded transfer them into your working directory, then import the reference sequences and taxonomy files into QIIME 2 using the following code:
 ```
 # Import Reference Sequences
 qiime tools import --type 'FeatureData[Sequence]' \
@@ -473,7 +473,7 @@ qiime tools import --type 'FeatureData[Taxonomy]' \
 <br>
 
 **National Center for Biotechnology Information (NCBI)**
-<br>The reference sequences and taxonomic files from the most up to date version of the NCBI database can be pulled straight from the NCBI server and imported into Qiime2 as a classifier:
+<br>The reference sequences and taxonomic files from the most up to date version of the NCBI database can be pulled straight from the NCBI server and imported into QIIME 2 as a classifier:
 ```
 qiime rescript get-ncbi-data \
   --p-query '18S[ALL] AND fungi[ORGN]' \
@@ -493,8 +493,8 @@ qiime rescript get-ncbi-data \
 See [THIS](https://forum.qiime2.org/t/using-rescript-to-compile-sequence-databases-and-taxonomy-classifiers-from-ncbi-genbank/15947) forum for more details on importing the classifier, and see [THIS](https://www.ncbi.nlm.nih.gov/books/NBK49540/) page for more information on the appropriate syntax needed for making adjusting to the --p-query search.<br>
 
 **MaarjAM**
-<br>Qiime2 compatable files can be downloaded [HERE](https://maarjam.ut.ee/?action=bDownload). This code is based on MaarjAM VT sequences of 18S rDNA gene region QIIME release (2021) for identifying Arbuscular Mycorrhizal Fungi (AMF).
-<br><br>Once database files are downloaded transfer them into your working directory, then import the reference sequences and taxonomy files into Qiime2 using the following code:
+<br>QIIME 2 compatable files can be downloaded [HERE](https://maarjam.ut.ee/?action=bDownload). This code is based on MaarjAM VT sequences of 18S rDNA gene region QIIME release (2021) for identifying Arbuscular Mycorrhizal Fungi (AMF).
+<br><br>Once database files are downloaded transfer them into your working directory, then import the reference sequences and taxonomy files into QIIME 2 using the following code:
 ```
 # Import Reference Sequences
 qiime tools import --type 'FeatureData[Sequence]' \
@@ -514,7 +514,7 @@ UNDER CONSTRUCTION
 <br>
 ### Bacteria (and other prokaryotes) Databases
 **Genome Taxonomy Database (GTDB)**
-<brThe database website can be found [HERE](https://gtdb.ecogenomic.org/). Sequences can be pulled using Qiime2 with the code below based on GTDP Version 220.0.
+<brThe database website can be found [HERE](https://gtdb.ecogenomic.org/). Sequences can be pulled using QIIME 2 with the code below based on GTDP Version 220.0.
 ```
 qiime rescript get-gtdb-data \
   --p-version 220.0 \
@@ -787,7 +787,7 @@ qiime feature-table summarize \
   --i-table path/to/search/results/NEW-database/directory-80/unassigned-table.qza \
   --o-visualization path/to/final/results/directory/all-unassigned-features-table.qzv
 ```
-Upload these onto the Qiime2 viewer and record the number of samples, features, and reads accounted for in both feature tables.
+Upload these onto the QIIME 2 viewer and record the number of samples, features, and reads accounted for in both feature tables.
 <br><br>
 As a gut check, I like to merge both my assigned and unassigned feature tables to make sure that the sample, feature, and read counts match the original feature table from DADA2 (feature-table.qza). If the counts don't align, something went amiss when merging your assigned feature tables.
 ```
@@ -840,7 +840,7 @@ qiime feature-table merge-taxa \
   --i-data path/to/search/results/database/directory-95/classification.qza \
   --o-merged-data path/to/search/results/database/classification_merged1.qza
 ```
-Now check to make sure they merged by converting the output Qiime artifact into a visualization file, uploading it onto the Qiime2 viewer, and observing if the number of features that are present is equal to the sum of both of the classification files you merged.
+Now check to make sure they merged by converting the output Qiime artifact into a visualization file, uploading it onto the QIIME 2 viewer, and observing if the number of features that are present is equal to the sum of both of the classification files you merged.
 ```
 qiime metadata tabulate \
   --m-input-file path/to/search/results/database/classification_merged1.qza \
