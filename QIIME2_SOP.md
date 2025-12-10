@@ -190,7 +190,8 @@ See paired-end section for next steps using the QIIME 2 visualization file (.qzv
 <br>
 ## STEP 3: Trim Primers From Sequences
 To trim primers from all sequences, QIIME 2 uses the cutadapt plugin (handbook found [HERE](https://docs.qiime2.org/2024.10/plugins/available/cutadapt/index.html)).
-<br>If you want to trim Golay adapters and barcodes see [THIS](https://forum.qiime2.org/t/cutadapt-adapter-vs-front/15450) forum page for more information.
+<br>If you want to trim Golay adapters and barcodes see [THIS](https://forum.qiime2.org/t/cutadapt-adapter-vs-front/15450) forum page for more information.<br>
+**WARNING:** Primer trimming can take anywhere from **2-4 hours** depending on how much processing power your computer has (if running QIIME 2 on your local drive) and how large your data set is.<br><br>
 
 **Primers commonly used in our studies:**
 <br><ins>Bacterial small ribosomal subunit (16S)</ins> V4 amplicon using 515F/806R primers (*Caporaso et al., 2011*).<br>
@@ -260,11 +261,12 @@ See paired-end section for next steps using the QIIME 2 visualization file (.qzv
 <br><br>If running multiple tests on the same set of sequences, single end and paired-end outputs should have identical parameters.
 <br>
 ## STEP 4: DADA2 - Trimming, Merging, Denoising, and Feature Calling of Sequences
-To assure that the most features will be detected, multiple tests will be run at this step based on post primer trimming quality plots.
-<br><br>This process will produce three Qiime artifacts:
+To assure that the most features will be detected, multiple tests will be run at this step based on post primer trimming quality plots. This process will produce three Qiime artifacts:
 1. <ins>Feature Table</ins> (feature-table.qza)
 2. <ins>Representative Sequences</ins> of detected features (feature-rep-seqs.qza)
 3. <ins>Denoising Statistics</ins> that shows the breakdown of the reads which passed each cleaning step (filtering, denoising, merging, and chimeras) for every sample (denoising-stats.qza)
+<br><br>
+**WARNING:** DADA2 can take anywhere from **3-8 hours** depending on how much processing power your computer has (if running QIIME 2 on your local drive) and how large your data set is.<br><br>
 
 ### Cleaning and Merging Paired-end Sequences<br>
 <ins>Test 1: Maintain Entire Sequence length</ins><br>
@@ -529,7 +531,8 @@ UNDER CONSTRUCTION
 
 ## STEP 8: Taxonomic Assignment To Features
 Using the Qiime artifact created by DADA2 (feature-rep-seqs.qza) containing the sequences associated with each identified feature (representative sequences) as the input file, these sequences can be used for BLAST searching each features taxonomic association.
-<br><br>For each database, run unnassigned sequences with 95%, 90%, and 80% identities. This allows for higher rates of taxonomic assignment by loosening the sequence consensus calling requirements for each database. If you want to use multiple databases to assign as many taxa as possible, start with BLAST searching the sequences through the database believed to provide the most assignments at all three query coverage targets first, then run the remainder of the unassigned sequences through the next best database. The code below shows an example of how to do this with two databases, however this can performed with additional databases (i.e., 3 or more) if needed!
+<br><br>For each database, run unnassigned sequences with 95%, 90%, and 80% identities. This allows for higher rates of taxonomic assignment by loosening the sequence consensus calling requirements for each database. If you want to use multiple databases to assign as many taxa as possible, start with BLAST searching the sequences through the database believed to provide the most assignments at all three query coverage targets first, then run the remainder of the unassigned sequences through the next best database. The code below shows an example of how to do this with two databases, however this can performed with additional databases (i.e., 3 or more) if needed!<br><br>
+**WARNING:** Taxonomic assignment using the first database can take anywhere from **2-4 hours** depending on how much processing power your computer has (if running QIIME 2 on your local drive) and how large your data set is. The subsequent database searches are much faster (finish within minutes).<br><br>
 <br><br>**Database ONE**
 <br><ins>95% Identity</ins>
 <br>First blast search will be run with all parameters at the default (NEED TO CHECK THIS), except setting the percent identity (--p-perc-identity) to 95% (0.95)
